@@ -134,8 +134,8 @@
         <!-- ==================== VIEW 1: MAIN MENU ==================== -->
         <section id="view-menu" class="space-y-8">
             <!-- Hero Banner -->
-            <div class="bg-gradient-to-br from-cockpit-800 via-cockpit-900 to-cockpit-950 border border-cockpit-700 rounded-2xl p-6 sm:p-8 avionics-glow relative overflow-hidden">
-                <div class="relative z-10 max-w-3xl">
+            <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-6 sm:p-8 avionics-glow shadow-2xl">
+                <div class="max-w-3xl">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/25 text-sky-300 text-xs font-mono mb-4">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         SYSTEMS & LIMITATIONS QUESTION BANK
@@ -144,78 +144,91 @@
                         Persiapan Ujian Type Rating Cessna 208B
                     </h2>
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                        Latihan interaktif lengkap dengan <strong>100 soal asli</strong> beserta kunci jawaban dan pembahasan teknis POH/AFM (PT6A-114A, Electrical, Fuel, Avionics G1000, dan Emergency Procedures).
+                        Platform evaluasi, latihan interaktif dan pembahasan teknis POH/AFM (PT6A-114A, Electrical, Fuel, Avionics G1000, dan Emergency Procedures).
                     </p>
                 </div>
             </div>
 
-            <!-- Global Settings Bar -->
-            <div class="bg-cockpit-900 border border-cockpit-700/80 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h3 class="text-sm font-semibold text-white">Pengaturan Mode Umpan Balik</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Pilih kapan pembahasan dan status benar/salah ditampilkan.</p>
-                </div>
-                <div class="inline-flex p-1 rounded-xl bg-cockpit-950 border border-cockpit-700 self-start sm:self-auto">
-                    <button id="toggle-instant-on" onclick="setFeedbackMode(true)" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white transition cursor-pointer">
-                        Mode Latihan (Langsung Bahas)
-                    </button>
-                    <button id="toggle-instant-off" onclick="setFeedbackMode(false)" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition cursor-pointer">
-                        Mode Ujian (Bahas di Akhir)
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mode Cards Grid -->
+            <!-- Mode Cards Grid (Clean & Compact without verbose descriptions) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Mode 1: All 100 Questions -->
-                <div class="bg-cockpit-900 border border-cockpit-700 hover:border-sky-500/50 rounded-2xl p-6 flex flex-col justify-between transition-all group">
-                    <div>
+                <!-- Mode 1: Simulasi Exam -->
+                <div class="bg-cockpit-900 border border-cockpit-700 hover:border-sky-500/50 rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all group shadow-lg">
+                    <div class="mb-6">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="w-11 h-11 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono font-bold text-lg">
+                            <span class="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono font-bold text-lg">
                                 100
                             </span>
-                            <span class="text-xs font-mono text-slate-400 bg-cockpit-800 px-2.5 py-1 rounded-lg border border-cockpit-700">FULL BANK</span>
+                            <span class="text-xs font-mono text-sky-300 bg-sky-500/10 px-3 py-1 rounded-lg border border-sky-500/25">100 SOAL • 90 MENIT</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition">Latihan Semua Soal (1 – 100)</h3>
-                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-5">
-                            Kerjakan seluruh 100 soal C208 secara berurutan atau diacak untuk penguasaan menyeluruh.
-                        </p>
-
-                        <!-- Shuffle Toggle for Mode 1 -->
-                        <label class="flex items-center gap-2.5 text-xs text-slate-300 bg-cockpit-800/70 p-3 rounded-xl border border-cockpit-700/70 cursor-pointer mb-6">
-                            <input type="checkbox" id="chk-shuffle-all" class="w-4 h-4 rounded accent-sky-500 cursor-pointer">
-                            <span>Acak urutan soal (Randomize)</span>
-                        </label>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-sky-300 transition">Simulasi Exam</h3>
                     </div>
-                    <button onclick="startQuiz('all')" class="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Mulai 100 Soal</span>
+                    <button onclick="openBriefing('exam100')" class="w-full py-3.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <span>Mulai Simulasi Exam</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
                     </button>
                 </div>
 
-                <!-- Mode 2: Exam Simulation (30 Random) -->
-                <div class="bg-cockpit-900 border border-cockpit-700 hover:border-cyan-500/50 rounded-2xl p-6 flex flex-col justify-between transition-all group">
-                    <div>
+                <!-- Mode 2: Latihan Soal -->
+                <div class="bg-cockpit-900 border border-cockpit-700 hover:border-cyan-500/50 rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all group shadow-lg">
+                    <div class="mb-6">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono font-bold text-lg">
+                            <span class="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono font-bold text-lg">
                                 30
                             </span>
-                            <span class="text-xs font-mono text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded-lg border border-cyan-500/20">CHECKRIDE SIM</span>
+                            <span class="text-xs font-mono text-cyan-300 bg-cyan-500/10 px-3 py-1 rounded-lg border border-cyan-500/20">30 SOAL ACAK • TANPA TIMER</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition">Simulasi Exam (30 Soal Acak)</h3>
-                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-5">
-                            Mengambil 30 soal secara acak dari bank soal untuk menguji kesiapan cepat sebelum ujian rating.
-                        </p>
-                        <div class="text-xs text-slate-400 bg-cockpit-800/70 p-3 rounded-xl border border-cockpit-700/70 mb-6 font-mono">
-                            Passing Grade: <span class="text-emerald-400 font-semibold">80%</span> (Min. 24 Benar)
-                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition">Latihan Soal</h3>
                     </div>
-                    <button onclick="startQuiz('sim30')" class="w-full py-3 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Mulai Simulasi</span>
+                    <button onclick="openBriefing('practice30')" class="w-full py-3.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <span>Mulai Latihan Soal</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 1B: PRE-FLIGHT BRIEFING ==================== -->
+        <section id="view-briefing" class="hidden max-w-2xl mx-auto">
+            <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-6 sm:p-8 avionics-glow shadow-2xl space-y-6">
+                <div class="flex items-center justify-between gap-3 border-b border-cockpit-800 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div id="briefing-icon-box" class="w-11 h-11 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span id="briefing-badge" class="text-[11px] font-mono uppercase tracking-wider text-sky-400">PRE-FLIGHT BRIEFING</span>
+                            <h2 id="briefing-title" class="text-xl sm:text-2xl font-bold text-white">Simulasi Exam</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Captain Briefing Message -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-cockpit-800/90 border border-sky-500/30">
+                    <p id="briefing-message" class="text-sm sm:text-base text-slate-100 leading-relaxed font-medium">
+                        Kerjakan total 100 soal type rating C208, Pembahasan dan kunci jawaban akan ditampilkan setelah simulasi exam selesai, selamat mengerjakan Capt! 😊
+                    </p>
+                </div>
+
+                <!-- Parameter Details -->
+                <div id="briefing-specs" class="space-y-2.5 text-xs sm:text-sm bg-cockpit-950/60 p-4 rounded-xl border border-cockpit-800 font-mono">
+                    <!-- Populated dynamically by openBriefing() -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
+                    <button onclick="returnToMenu()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-cockpit-800 hover:bg-cockpit-700 text-slate-200 border border-cockpit-600 text-sm font-medium transition cursor-pointer">
+                        Kembali ke Menu
+                    </button>
+                    <button id="btn-confirm-start" onclick="confirmStartFromBriefing()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold flex items-center justify-center gap-2 transition cursor-pointer">
+                        <span>Mulai Kerjakan Sekarang</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </button>
                 </div>
@@ -277,13 +290,13 @@
                         <div id="options-container" class="space-y-3">
                             <!-- Populated by JS -->
                         </div>
-
-                        <!-- Instant Explanation Box (Visible in Practice Mode after answering) -->
-                        <div id="instant-explanation" class="hidden mt-6 p-4 sm:p-5 rounded-2xl bg-cockpit-800/90 border border-sky-500/30">
-                            <div class="flex items-center gap-2 mb-2">
+                        <!-- Instant Explanation Box (Visible in Latihan Soal after answering) -->
+                        <div id="instant-explanation" class="hidden mt-6 p-4 sm:p-5 rounded-2xl bg-cockpit-800/95 border border-sky-500/35 space-y-2.5">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
                                 <span id="exp-status-badge" class="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold"></span>
                                 <span class="text-xs font-mono text-sky-300 uppercase tracking-wider">POH / Technical Rationale</span>
                             </div>
+                            <div id="exp-correct-answer" class="text-sm font-semibold text-emerald-300 bg-emerald-500/10 border border-emerald-500/25 rounded-xl px-3.5 py-2"></div>
                             <p id="exp-text" class="text-sm text-slate-200 leading-relaxed"></p>
                         </div>
                     </div>
@@ -348,17 +361,17 @@
             <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-6 sm:p-8 avionics-glow">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     <div class="space-y-2">
-                        <div class="flex items-center gap-3">
+                        <div id="res-meta-row" class="flex flex-wrap items-center gap-3">
                             <span id="res-pass-badge" class="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider">
                                 PASSED
                             </span>
                             <span id="res-time-taken" class="text-xs font-mono text-slate-400">
-                                Waktu: 00:00
+                                Sisa Waktu: 00:00:00
                             </span>
                         </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white">Hasil Evaluasi Type Rating C208B</h2>
+                        <h2 id="res-title" class="text-2xl sm:text-3xl font-bold text-white">Hasil Evaluasi Type Rating C208B</h2>
                         <p id="res-subtitle" class="text-sm text-slate-300">
-                            Passing grade standar ujian rating adalah 80%.
+                            Passing grade standar Simulasi Exam adalah 70%.
                         </p>
                     </div>
 
@@ -1494,14 +1507,20 @@
         // ============================================================================
         // APPLICATION STATE
         // ============================================================================
+        const EXAM_DURATION_SECONDS = 90 * 60; // 1 jam 30 menit (5400 detik)
+        const EXAM_PASSING_GRADE = 70;         // Passing grade 70%
+
         let state = {
-            instantFeedback: true,
-            mode: 'all', // 'all', 'sim30', 'retry'
+            instantFeedback: false,
+            hasTimer: false,
+            hasPassingGrade: false,
+            pendingMode: 'exam100',
+            mode: 'exam100', // 'exam100', 'practice30', 'retry'
             questions: [],
             currentIndex: 0,
             userAnswers: {}, // { questionId: selectedOptionIndex }
             flagged: {},     // { questionId: true/false }
-            timerSeconds: 0,
+            remainingSeconds: EXAM_DURATION_SECONDS,
             timerInterval: null,
             resultFilter: 'all'
         };
@@ -1509,22 +1528,8 @@
         const LETTERS = ['A', 'B', 'C', 'D'];
 
         // ============================================================================
-        // SETTINGS & UTILITY FUNCTIONS
+        // UTILITY FUNCTIONS
         // ============================================================================
-        function setFeedbackMode(isInstant) {
-            state.instantFeedback = isInstant;
-            const btnOn = document.getElementById('toggle-instant-on');
-            const btnOff = document.getElementById('toggle-instant-off');
-
-            if (isInstant) {
-                btnOn.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white transition cursor-pointer";
-                btnOff.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition cursor-pointer";
-            } else {
-                btnOff.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white transition cursor-pointer";
-                btnOn.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition cursor-pointer";
-            }
-        }
-
         function shuffleArray(arr) {
             const copy = [...arr];
             for (let i = copy.length - 1; i > 0; i--) {
@@ -1532,6 +1537,13 @@
                 [copy[i], copy[j]] = [copy[j], copy[i]];
             }
             return copy;
+        }
+
+        function formatDuration(totalSecs) {
+            const hrs = String(Math.floor(totalSecs / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((totalSecs % 3600) / 60)).padStart(2, '0');
+            const secs = String(totalSecs % 60).padStart(2, '0');
+            return `${hrs}:${mins}:${secs}`;
         }
 
         function showModal(title, message, onConfirm) {
@@ -1568,62 +1580,160 @@
         }
 
         // ============================================================================
-        // QUIZ LIFECYCLE
+        // BRIEFING & QUIZ LIFECYCLE
         // ============================================================================
+        function openBriefing(mode) {
+            state.pendingMode = mode;
+
+            document.getElementById('view-menu').classList.add('hidden');
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById('view-results').classList.add('hidden');
+            document.getElementById('view-briefing').classList.remove('hidden');
+
+            document.getElementById('btn-home').classList.remove('hidden');
+            document.getElementById('btn-home').classList.add('flex');
+
+            const titleEl = document.getElementById('briefing-title');
+            const badgeEl = document.getElementById('briefing-badge');
+            const msgEl = document.getElementById('briefing-message');
+            const specsEl = document.getElementById('briefing-specs');
+            const startBtn = document.getElementById('btn-confirm-start');
+
+            if (mode === 'exam100') {
+                badgeEl.textContent = "BRIEFING • OFFICIAL EXAM SIM";
+                badgeEl.className = "text-[11px] font-mono uppercase tracking-wider text-sky-400";
+                titleEl.textContent = "Simulasi Exam (100 Soal)";
+                msgEl.textContent = "Kerjakan total 100 soal type rating C208, Pembahasan dan kunci jawaban akan ditampilkan setelah simulasi exam selesai, selamat mengerjakan Capt! 😊";
+                specsEl.innerHTML = `
+                    <div class="flex items-center justify-between py-1 border-b border-cockpit-800/80">
+                        <span class="text-slate-400">Jumlah Soal:</span>
+                        <span class="text-white font-semibold">100 Soal (Acak Otomatis)</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1 border-b border-cockpit-800/80">
+                        <span class="text-slate-400">Durasi Waktu:</span>
+                        <span class="text-amber-300 font-semibold">1 Jam 30 Menit (90 Menit)</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1">
+                        <span class="text-slate-400">Passing Grade:</span>
+                        <span class="text-emerald-400 font-semibold">70% (Min. 70 Benar)</span>
+                    </div>
+                `;
+                startBtn.className = "w-full sm:w-auto px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold flex items-center justify-center gap-2 transition cursor-pointer";
+            } else {
+                badgeEl.textContent = "BRIEFING • STUDY MODE";
+                badgeEl.className = "text-[11px] font-mono uppercase tracking-wider text-cyan-400";
+                titleEl.textContent = "Latihan Soal (30 Soal Acak)";
+                msgEl.textContent = "Kerjakan Total 30 soal type rating C208 yang disusun secara acak, pembahasan akan muncul setelah kalian menjawab, selamat mengerjakan Capt!";
+                specsEl.innerHTML = `
+                    <div class="flex items-center justify-between py-1 border-b border-cockpit-800/80">
+                        <span class="text-slate-400">Jumlah Soal:</span>
+                        <span class="text-white font-semibold">30 Soal Acak (dari 100 Bank Soal)</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1 border-b border-cockpit-800/80">
+                        <span class="text-slate-400">Durasi Waktu:</span>
+                        <span class="text-cyan-300 font-semibold">Tanpa Batas Waktu</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1">
+                        <span class="text-slate-400">Pembahasan:</span>
+                        <span class="text-emerald-400 font-semibold">Langsung Muncul Tiap Soal</span>
+                    </div>
+                `;
+                startBtn.className = "w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold flex items-center justify-center gap-2 transition cursor-pointer";
+            }
+        }
+
+        function confirmStartFromBriefing() {
+            startQuiz(state.pendingMode);
+        }
+
         function startQuiz(mode, customList = null) {
+            clearInterval(state.timerInterval);
             state.mode = mode;
             state.currentIndex = 0;
             state.userAnswers = {};
             state.flagged = {};
-            state.timerSeconds = 0;
 
             let badgeLabel = "";
-            if (mode === 'all') {
-                const shouldShuffle = document.getElementById('chk-shuffle-all').checked;
-                state.questions = shouldShuffle ? shuffleArray(QUESTION_BANK) : [...QUESTION_BANK];
-                badgeLabel = shouldShuffle ? "LATIHAN 100 SOAL (ACAK)" : "LATIHAN 100 SOAL (URUT)";
-            } else if (mode === 'sim30') {
+            let feedbackLabel = "";
+
+            if (mode === 'exam100') {
+                state.questions = shuffleArray(QUESTION_BANK); // Selalu acak otomatis 100 soal
+                state.instantFeedback = false;
+                state.hasTimer = true;
+                state.hasPassingGrade = true;
+                state.remainingSeconds = EXAM_DURATION_SECONDS;
+                badgeLabel = "SIMULASI EXAM • 100 SOAL";
+                feedbackLabel = "Passing Grade: 70% • Exam Mode";
+            } else if (mode === 'practice30') {
                 state.questions = shuffleArray(QUESTION_BANK).slice(0, 30);
-                badgeLabel = "SIMULASI EXAM (30 SOAL)";
+                state.instantFeedback = true;
+                state.hasTimer = false;
+                state.hasPassingGrade = false;
+                badgeLabel = "LATIHAN SOAL • 30 SOAL ACAK";
+                feedbackLabel = "Pembahasan Langsung Aktif";
             } else if (mode === 'retry' && customList) {
-                state.questions = customList;
+                state.questions = shuffleArray(customList);
+                state.instantFeedback = true;
+                state.hasTimer = false;
+                state.hasPassingGrade = false;
                 badgeLabel = `ULANGI SOAL SALAH (${customList.length} SOAL)`;
+                feedbackLabel = "Pembahasan Langsung Aktif";
             }
 
             document.getElementById('quiz-mode-badge').textContent = badgeLabel;
-            document.getElementById('quiz-feedback-badge').textContent = state.instantFeedback
-                ? "Instant Feedback: ON"
-                : "Exam Mode (Hidden Feedback)";
+            document.getElementById('quiz-feedback-badge').textContent = feedbackLabel;
             document.getElementById('total-count').textContent = state.questions.length;
 
             // Switch Views
             document.getElementById('view-menu').classList.add('hidden');
+            document.getElementById('view-briefing').classList.add('hidden');
             document.getElementById('view-results').classList.add('hidden');
             document.getElementById('view-quiz').classList.remove('hidden');
 
             document.getElementById('btn-home').classList.remove('hidden');
             document.getElementById('btn-home').classList.add('flex');
-            document.getElementById('header-timer-box').classList.remove('hidden');
-            document.getElementById('header-timer-box').classList.add('flex');
 
-            startTimer();
+            const timerBox = document.getElementById('header-timer-box');
+            if (state.hasTimer) {
+                timerBox.classList.remove('hidden');
+                timerBox.classList.add('flex');
+                startCountdownTimer();
+            } else {
+                timerBox.classList.add('hidden');
+                timerBox.classList.remove('flex');
+            }
+
             buildNavigator();
             renderQuestion();
         }
 
-        function startTimer() {
+        function startCountdownTimer() {
             clearInterval(state.timerInterval);
-            updateTimerDisplay();
+            updateCountdownDisplay();
             state.timerInterval = setInterval(() => {
-                state.timerSeconds++;
-                updateTimerDisplay();
+                state.remainingSeconds--;
+                updateCountdownDisplay();
+
+                if (state.remainingSeconds <= 0) {
+                    clearInterval(state.timerInterval);
+                    state.remainingSeconds = 0;
+                    updateCountdownDisplay();
+                    showToast("Waktu ujian 1 jam 30 menit telah habis! Menilai jawaban...");
+                    showResults();
+                }
             }, 1000);
         }
 
-        function updateTimerDisplay() {
-            const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
-            const secs = String(state.timerSeconds % 60).padStart(2, '0');
-            document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+        function updateCountdownDisplay() {
+            const timerBox = document.getElementById('header-timer-box');
+            const display = document.getElementById('timer-display');
+            display.textContent = formatDuration(state.remainingSeconds);
+
+            if (state.remainingSeconds <= 600) {
+                timerBox.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rose-500/20 border border-rose-500/50 font-mono text-xs sm:text-sm text-rose-300 animate-pulse";
+            } else {
+                timerBox.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cockpit-800 border border-cockpit-700 font-mono text-xs sm:text-sm text-cyan-300";
+            }
         }
 
         function confirmReturnHome() {
@@ -1641,6 +1751,7 @@
 
         function returnToMenu() {
             clearInterval(state.timerInterval);
+            document.getElementById('view-briefing').classList.add('hidden');
             document.getElementById('view-quiz').classList.add('hidden');
             document.getElementById('view-results').classList.add('hidden');
             document.getElementById('view-menu').classList.remove('hidden');
@@ -1781,14 +1892,20 @@
             if (hasAnswered && state.instantFeedback) {
                 expBox.classList.remove('hidden');
                 const statusBadge = document.getElementById('exp-status-badge');
+                const correctAnsBox = document.getElementById('exp-correct-answer');
+                const correctLetter = LETTERS[q.answer];
+                const correctText = q.options[q.answer];
+
                 if (selectedIdx === q.answer) {
-                    statusBadge.textContent = "JAWABAN BENAR";
+                    statusBadge.textContent = "JAWABAN ANDA BENAR";
                     statusBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
                 } else {
-                    statusBadge.textContent = `KURANG TEPAT • KUNCI: ${LETTERS[q.answer]}`;
+                    statusBadge.textContent = "JAWABAN ANDA KURANG TEPAT";
                     statusBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40";
                 }
-                document.getElementById('exp-text').textContent = q.explanation;
+
+                correctAnsBox.textContent = `Jawaban yang Benar: ${correctLetter}. ${correctText}`;
+                document.getElementById('exp-text').textContent = `Mengapa demikian: ${q.explanation}`;
             } else {
                 expBox.classList.add('hidden');
             }
@@ -1852,6 +1969,10 @@
             document.getElementById('view-quiz').classList.add('hidden');
             document.getElementById('view-results').classList.remove('hidden');
 
+            const timerBox = document.getElementById('header-timer-box');
+            timerBox.classList.add('hidden');
+            timerBox.classList.remove('flex');
+
             let correct = 0;
             let wrong = 0;
 
@@ -1865,21 +1986,39 @@
 
             const total = state.questions.length;
             const scorePct = Math.round((correct / total) * 100);
-            const isPassed = scorePct >= 80;
-
-            const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
-            const secs = String(state.timerSeconds % 60).padStart(2, '0');
-            document.getElementById('res-time-taken').textContent = `Waktu Pengerjaan: ${mins}:${secs}`;
 
             const passBadge = document.getElementById('res-pass-badge');
-            if (isPassed) {
-                passBadge.textContent = "PASSED (LULUS)";
-                passBadge.className = "px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                document.getElementById('res-subtitle').textContent = "Selamat! Skor Anda memenuhi passing grade minimal 80% untuk Type Rating C208B.";
+            const timeTakenEl = document.getElementById('res-time-taken');
+            const resTitle = document.getElementById('res-title');
+            const resSubtitle = document.getElementById('res-subtitle');
+
+            if (state.hasPassingGrade) {
+                const isPassed = scorePct >= EXAM_PASSING_GRADE;
+                const elapsedSecs = EXAM_DURATION_SECONDS - state.remainingSeconds;
+
+                passBadge.classList.remove('hidden');
+                timeTakenEl.classList.remove('hidden');
+                timeTakenEl.textContent = `Waktu Terpakai: ${formatDuration(elapsedSecs)} / 01:30:00`;
+                resTitle.textContent = "Hasil Simulasi Exam Type Rating C208B";
+
+                if (isPassed) {
+                    passBadge.textContent = "LULUS (PASSED)";
+                    passBadge.className = "px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                    resSubtitle.textContent = "Selamat anda lulus, Gassskan ambil rating C208 & terbang capt. Semoga berhasil! 🫡";
+                    resSubtitle.className = "text-sm sm:text-base font-semibold text-emerald-300";
+                } else {
+                    passBadge.textContent = "BELUM LULUS (< 70%)";
+                    passBadge.className = "px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40";
+                    resSubtitle.textContent = "Masih belum memenuhi passing grade capt, coba di review kembali materinya ya 😊";
+                    resSubtitle.className = "text-sm sm:text-base font-semibold text-amber-300";
+                }
             } else {
-                passBadge.textContent = "BELUM LULUS (< 80%)";
-                passBadge.className = "px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40";
-                document.getElementById('res-subtitle').textContent = "Skor di bawah passing grade 80%. Pelajari kembali pembahasan soal yang salah di bawah ini.";
+                // Mode Latihan Soal (30 soal acak) - tanpa passing grade & tanpa timer
+                passBadge.classList.add('hidden');
+                timeTakenEl.classList.add('hidden');
+                resTitle.textContent = "Hasil Latihan Soal Cessna 208B";
+                resSubtitle.textContent = `Anda menyelesaikan ${total} soal latihan dengan skor akhir ${scorePct}% (${correct} benar dari ${total} soal).`;
+                resSubtitle.className = "text-sm text-slate-300";
             }
 
             document.getElementById('res-score-pct').textContent = `${scorePct}%`;
