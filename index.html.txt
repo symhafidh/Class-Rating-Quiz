@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C208B Grand Caravan - Type Rating Exam Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cockpit: {
+                            950: '#06090f',
+                            900: '#0b111e',
+                            800: '#131c2e',
+                            700: '#1e2b45',
+                            600: '#2d3f63',
+                            accent: '#0ea5e9',
+                            cyan: '#22d3ee',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                            rose: '#f43f5e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for Cockpit Aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b111e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2b45;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2d3f63;
+        }
+        .avionics-glow {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.12);
+        }
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-cockpit-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
+
+    <!-- Top Avionics Status Bar -->
+    <header class="bg-cockpit-900/95 backdrop-blur border-b border-cockpit-700/80 sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                    <!-- Aircraft / Propeller Icon -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-bold text-sm sm:text-base tracking-wide text-white">C208B GRAND CARAVAN</h1>
+                        <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono font-semibold bg-sky-500/15 text-sky-300 border border-sky-500/30 rounded-full">PT6A-114A</span>
+                    </div>
+                    <p class="text-xs text-slate-400 font-mono">TYPE RATING EXAM SIMULATOR • 100 Q-BANK</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div id="header-timer-box" class="hidden items-center gap-2 px-3 py-1.5 rounded-lg bg-cockpit-800 border border-cockpit-700 font-mono text-xs sm:text-sm text-cyan-300">
+                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span id="timer-display">00:00</span>
+                </div>
+                <button id="btn-home" onclick="confirmReturnHome()" class="hidden items-center gap-1.5 px-3 py-2 rounded-xl bg-cockpit-800 hover:bg-cockpit-700 text-slate-200 border border-cockpit-600/60 text-xs sm:text-sm font-medium transition-all cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span>Menu Utama</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Custom Modal Dialog (Replaces alert/confirm) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+        <div class="bg-cockpit-800 border border-cockpit-600 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 id="modal-title" class="text-lg font-bold text-white">Konfirmasi</h3>
+            </div>
+            <p id="modal-message" class="text-sm text-slate-300 leading-relaxed mb-6">Apakah Anda yakin?</p>
+            <div class="flex justify-end gap-3">
+                <button id="modal-cancel" class="px-4 py-2.5 rounded-xl bg-cockpit-700 hover:bg-cockpit-600 text-slate-200 text-sm font-medium transition cursor-pointer">Batal</button>
+                <button id="modal-confirm" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold transition cursor-pointer">Ya, Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 px-4 py-3 rounded-xl bg-emerald-600 text-white text-sm font-medium shadow-xl border border-emerald-400/30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span id="toast-msg">Berhasil disalin!</span>
+    </div>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+        <!-- ==================== VIEW 1: MAIN MENU ==================== -->
+        <section id="view-menu" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-br from-cockpit-800 via-cockpit-900 to-cockpit-950 border border-cockpit-700 rounded-2xl p-6 sm:p-8 avionics-glow relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/25 text-sky-300 text-xs font-mono mb-4">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        SYSTEMS & LIMITATIONS QUESTION BANK
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-3">
+                        Persiapan Ujian Type Rating Cessna 208B
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Latihan interaktif lengkap dengan <strong>100 soal asli</strong> beserta kunci jawaban dan pembahasan teknis POH/AFM (PT6A-114A, Electrical, Fuel, Avionics G1000, dan Emergency Procedures).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Global Settings Bar -->
+            <div class="bg-cockpit-900 border border-cockpit-700/80 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-sm font-semibold text-white">Pengaturan Mode Umpan Balik</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Pilih kapan pembahasan dan status benar/salah ditampilkan.</p>
+                </div>
+                <div class="inline-flex p-1 rounded-xl bg-cockpit-950 border border-cockpit-700 self-start sm:self-auto">
+                    <button id="toggle-instant-on" onclick="setFeedbackMode(true)" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white transition cursor-pointer">
+                        Mode Latihan (Langsung Bahas)
+                    </button>
+                    <button id="toggle-instant-off" onclick="setFeedbackMode(false)" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition cursor-pointer">
+                        Mode Ujian (Bahas di Akhir)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mode Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Mode 1: All 100 Questions -->
+                <div class="bg-cockpit-900 border border-cockpit-700 hover:border-sky-500/50 rounded-2xl p-6 flex flex-col justify-between transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-11 h-11 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono font-bold text-lg">
+                                100
+                            </span>
+                            <span class="text-xs font-mono text-slate-400 bg-cockpit-800 px-2.5 py-1 rounded-lg border border-cockpit-700">FULL BANK</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition">Latihan Semua Soal (1 – 100)</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-5">
+                            Kerjakan seluruh 100 soal C208 secara berurutan atau diacak untuk penguasaan menyeluruh.
+                        </p>
+
+                        <!-- Shuffle Toggle for Mode 1 -->
+                        <label class="flex items-center gap-2.5 text-xs text-slate-300 bg-cockpit-800/70 p-3 rounded-xl border border-cockpit-700/70 cursor-pointer mb-6">
+                            <input type="checkbox" id="chk-shuffle-all" class="w-4 h-4 rounded accent-sky-500 cursor-pointer">
+                            <span>Acak urutan soal (Randomize)</span>
+                        </label>
+                    </div>
+                    <button onclick="startQuiz('all')" class="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <span>Mulai 100 Soal</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mode 2: Exam Simulation (30 Random) -->
+                <div class="bg-cockpit-900 border border-cockpit-700 hover:border-cyan-500/50 rounded-2xl p-6 flex flex-col justify-between transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono font-bold text-lg">
+                                30
+                            </span>
+                            <span class="text-xs font-mono text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded-lg border border-cyan-500/20">CHECKRIDE SIM</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition">Simulasi Exam (30 Soal Acak)</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-5">
+                            Mengambil 30 soal secara acak dari bank soal untuk menguji kesiapan cepat sebelum ujian rating.
+                        </p>
+                        <div class="text-xs text-slate-400 bg-cockpit-800/70 p-3 rounded-xl border border-cockpit-700/70 mb-6 font-mono">
+                            Passing Grade: <span class="text-emerald-400 font-semibold">80%</span> (Min. 24 Benar)
+                        </div>
+                    </div>
+                    <button onclick="startQuiz('sim30')" class="w-full py-3 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <span>Mulai Simulasi</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 2: ACTIVE QUIZ ==================== -->
+        <section id="view-quiz" class="hidden space-y-6">
+            <!-- Top Progress & Mode Info -->
+            <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-4 sm:p-5">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <span id="quiz-mode-badge" class="px-2.5 py-1 rounded-lg bg-sky-500/15 border border-sky-500/30 text-sky-300 text-xs font-mono font-semibold">
+                            LATIHAN 100 SOAL
+                        </span>
+                        <span id="quiz-feedback-badge" class="px-2.5 py-1 rounded-lg bg-cockpit-800 border border-cockpit-700 text-slate-300 text-xs font-mono">
+                            Instant Feedback: ON
+                        </span>
+                    </div>
+                    <div class="font-mono text-xs sm:text-sm text-slate-300">
+                        Terjawab: <span id="answered-count" class="text-sky-400 font-bold">0</span> / <span id="total-count">100</span>
+                    </div>
+                </div>
+                <!-- Progress Bar -->
+                <div class="w-full h-2.5 bg-cockpit-950 rounded-full overflow-hidden border border-cockpit-800">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-sky-500 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Main Quiz Grid: Question Card + Navigator -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Left Column: Question Card (8 cols) -->
+                <div class="lg:col-span-8 space-y-5">
+                    <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-5 sm:p-7 shadow-xl">
+                        <!-- Question Meta -->
+                        <div class="flex items-center justify-between gap-3 pb-4 mb-5 border-b border-cockpit-800">
+                            <div class="flex items-center gap-2.5">
+                                <span id="q-step-label" class="px-3 py-1 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-300 font-mono text-xs sm:text-sm font-bold">
+                                    SOAL 1 / 100
+                                </span>
+                                <span id="q-orig-num" class="text-xs font-mono text-slate-400 bg-cockpit-800 px-2.5 py-1 rounded-lg border border-cockpit-700">
+                                    Bank #1
+                                </span>
+                            </div>
+                            <button id="btn-flag" onclick="toggleFlag()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cockpit-800 hover:bg-cockpit-700 border border-cockpit-700 text-xs font-medium text-slate-300 transition cursor-pointer">
+                                <svg id="flag-icon" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+                                </svg>
+                                <span id="flag-text">Tandai</span>
+                            </button>
+                        </div>
+
+                        <!-- Question Text -->
+                        <h2 id="question-text" class="text-base sm:text-lg font-semibold text-white leading-relaxed mb-6">
+                            Loading question...
+                        </h2>
+
+                        <!-- Options List -->
+                        <div id="options-container" class="space-y-3">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <!-- Instant Explanation Box (Visible in Practice Mode after answering) -->
+                        <div id="instant-explanation" class="hidden mt-6 p-4 sm:p-5 rounded-2xl bg-cockpit-800/90 border border-sky-500/30">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span id="exp-status-badge" class="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold"></span>
+                                <span class="text-xs font-mono text-sky-300 uppercase tracking-wider">POH / Technical Rationale</span>
+                            </div>
+                            <p id="exp-text" class="text-sm text-slate-200 leading-relaxed"></p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <button id="btn-prev" onclick="prevQuestion()" class="px-4 py-3 rounded-xl bg-cockpit-800 hover:bg-cockpit-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 border border-cockpit-700 text-sm font-medium flex items-center gap-2 transition cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            <span>Sebelumnya</span>
+                        </button>
+
+                        <div class="flex items-center gap-3 ml-auto">
+                            <button id="btn-next" onclick="nextQuestion()" class="px-5 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold flex items-center gap-2 transition cursor-pointer">
+                                <span>Selanjutnya</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                            <button id="btn-finish" onclick="confirmFinishQuiz()" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold flex items-center gap-2 transition cursor-pointer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>Selesai & Nilai</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Question Navigator Grid (4 cols) -->
+                <div class="lg:col-span-4 bg-cockpit-900 border border-cockpit-700 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider font-mono">Navigasi Nomor</h3>
+                        <span class="text-xs text-slate-400 font-mono">Klik untuk lompat</span>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="flex flex-wrap gap-3 text-[11px] text-slate-400 mb-4 pb-3 border-b border-cockpit-800">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded bg-sky-500/30 border border-sky-400"></span> Aktif
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded bg-slate-600"></span> Terjawab
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded bg-amber-500/40 border border-amber-400"></span> Ditandai
+                        </div>
+                    </div>
+
+                    <!-- Grid Buttons -->
+                    <div id="navigator-grid" class="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-5 gap-2 max-h-[380px] overflow-y-auto pr-1">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: RESULTS DASHBOARD ==================== -->
+        <section id="view-results" class="hidden space-y-6">
+            <!-- Score Summary Card -->
+            <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-6 sm:p-8 avionics-glow">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3">
+                            <span id="res-pass-badge" class="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider">
+                                PASSED
+                            </span>
+                            <span id="res-time-taken" class="text-xs font-mono text-slate-400">
+                                Waktu: 00:00
+                            </span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">Hasil Evaluasi Type Rating C208B</h2>
+                        <p id="res-subtitle" class="text-sm text-slate-300">
+                            Passing grade standar ujian rating adalah 80%.
+                        </p>
+                    </div>
+
+                    <!-- Score Metrics -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                        <div class="bg-cockpit-800 border border-cockpit-700 rounded-2xl p-4 text-center min-w-[95px]">
+                            <div id="res-score-pct" class="text-2xl sm:text-3xl font-mono font-bold text-sky-400">0%</div>
+                            <div class="text-xs text-slate-400 mt-1">Skor Akhir</div>
+                        </div>
+                        <div class="bg-cockpit-800 border border-emerald-500/30 rounded-2xl p-4 text-center min-w-[95px]">
+                            <div id="res-correct-cnt" class="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">0</div>
+                            <div class="text-xs text-slate-400 mt-1">Benar</div>
+                        </div>
+                        <div class="bg-cockpit-800 border border-rose-500/30 rounded-2xl p-4 text-center min-w-[95px]">
+                            <div id="res-wrong-cnt" class="text-2xl sm:text-3xl font-mono font-bold text-rose-400">0</div>
+                            <div class="text-xs text-slate-400 mt-1">Salah</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center gap-3 mt-6 pt-6 border-t border-cockpit-800 no-print">
+                    <button id="btn-retry-wrong" onclick="retryWrongQuestions()" class="hidden px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold items-center gap-2 transition cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        <span>Ulangi Soal yang Salah</span>
+                    </button>
+                    <button onclick="copySummaryToClipboard()" class="px-4 py-2.5 rounded-xl bg-cockpit-800 hover:bg-cockpit-700 text-slate-200 border border-cockpit-600 text-sm font-medium flex items-center gap-2 transition cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                        </svg>
+                        <span>Salin Ringkasan</span>
+                    </button>
+                    <button onclick="window.print()" class="px-4 py-2.5 rounded-xl bg-cockpit-800 hover:bg-cockpit-700 text-slate-200 border border-cockpit-600 text-sm font-medium flex items-center gap-2 transition cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                        </svg>
+                        <span>Cetak / PDF</span>
+                    </button>
+                    <button onclick="returnToMenu()" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold ml-auto transition cursor-pointer">
+                        Kembali ke Menu Utama
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Tabs for Review -->
+            <div class="flex flex-wrap items-center justify-between gap-4 no-print">
+                <h3 class="text-lg font-bold text-white">Pembahasan & Review Jawaban</h3>
+                <div class="inline-flex p-1 rounded-xl bg-cockpit-900 border border-cockpit-700">
+                    <button id="filter-all" onclick="filterResults('all')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition cursor-pointer">
+                        Semua Soal
+                    </button>
+                    <button id="filter-wrong" onclick="filterResults('wrong')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">
+                        Salah Saja
+                    </button>
+                    <button id="filter-correct" onclick="filterResults('correct')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">
+                        Benar Saja
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Review List -->
+            <div id="review-list" class="space-y-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-cockpit-800/80 py-4 text-center text-xs text-slate-500 font-mono no-print">
+        CESSNA 208B GRAND CARAVAN • GROUND SCHOOL & TYPE RATING STUDY TOOL
+    </footer>
+
+    <script>
+        // ============================================================================
+        // COMPLETE 100-QUESTION BANK (VERBATIM QUESTIONS + POH INDONESIAN RATIONALES)
+        // ============================================================================
+        const QUESTION_BANK = [
+            {
+                id: 1,
+                q: "The maximum torque for takeoff:",
+                options: ["1090 ft-lb.", "2397 ft-lb.", "1970 ft-lb.", "1865 ft-lb."],
+                answer: 3, // D
+                explanation: "Pada mesin PT6A-114A (C208B), batas torsi maksimum (Maximum Permissible Torque) untuk Takeoff dan Maximum Continuous adalah 1.865 ft-lbs (pada 1900 RPM)."
+            },
+            {
+                id: 2,
+                q: "The max ITT for takeoff is:",
+                options: ["850", "765", "740", "805"],
+                answer: 3, // D
+                explanation: "Berdasarkan C208B POH Section 2 (Limitations), batas maksimum Interstage Turbine Temperature (ITT) saat Takeoff adalah 805°C (dibatasi maksimal selama 5 menit)."
+            },
+            {
+                id: 3,
+                q: "The igniters should be used:",
+                options: ["When fuel levels are low.", "In icing conditions.", "In heavy precipitation.", "All of the above"],
+                answer: 3, // D
+                explanation: "Ignition (IGNITION switch ke posisi ON) wajib digunakan saat level bahan bakar rendah (low fuel levels), kondisi icing, serta hujan lebat (heavy precipitation) untuk mencegah risiko engine flameout."
+            },
+            {
+                id: 4,
+                q: "During the start procedure, the minimum NG the fuel condition lever should be placed in Low Idle?",
+                options: ["12%.", "18%.", "46%.", "52%."],
+                answer: 0, // A
+                explanation: "Saat prosedur engine start, Fuel Condition Lever digerakkan dari CUTOFF ke LOW IDLE setelah putaran gas generator (Ng) stabil minimal mencapai 12% (pada ketinggian/suhu tinggi bisa menunggu hingga 18%, namun minimum standar POH adalah 12%)."
+            },
+            {
+                id: 5,
+                q: "After three unsuccessful start attempts using the internal battery, the minimum waiting period before another attempt is:",
+                options: ["30 seconds.", "60 seconds.", "90 seconds.", "30 minutes."],
+                answer: 3, // D
+                explanation: "Starter duty cycle untuk internal battery adalah: percobaan ke-1 (tunggu 60 detik), percobaan ke-2 (tunggu 60 detik), dan setelah 3 kali percobaan gagal wajib menunggu minimal 30 menit untuk pendinginan motor starter dan baterai."
+            },
+            {
+                id: 6,
+                q: "The propeller must not be left in beta for long periods when there is a crosswind from the right with the cargo pod installed because:",
+                options: [
+                    "The crosswind will impair the oil cooling effect of the exhaust pipes.",
+                    "The propeller slipstream is required to keep excessive heat away from the cargo pod.",
+                    "The right crosswind will damage the feathered propeller.",
+                    "The right crosswind will damage the engine drive shaft."
+                ],
+                answer: 1, // B
+                explanation: "Pipa knalpot (exhaust) berada di sisi kanan bawah cowling. Saat propeller dalam posisi Beta/Reverse (aliran udara ke depan berkurang) dan ada angin samping dari kanan, gas buang panas dapat mengenai dan merusak struktur cargo pod."
+            },
+            {
+                id: 7,
+                q: "Reverse can be used during landing roll to:",
+                options: [
+                    "Achieve the specified landing performance by shortening the landing roll.",
+                    "Reduce the landing roll to less than that specified in the manual.",
+                    "Improve the pilot's view.",
+                    "Reduce the noise level."
+                ],
+                answer: 0, // A
+                explanation: "Penggunaan reverse thrust saat landing roll bertujuan untuk mencapai jarak pendaratan sesuai performa yang tercantum di POH dengan memperpendek jarak gelinding (landing roll) serta mengurangi keausan rem."
+            },
+            {
+                id: 8,
+                q: "Pulling the power lever aft of the stop while the prop is in feather will:",
+                options: [
+                    "Have no effect.",
+                    "Damage the power lever linkage.",
+                    "Increase the propeller pitch.",
+                    "Reduce the propeller pitch"
+                ],
+                answer: 0, // A
+                explanation: "Saat propeller berada dalam posisi feather, tekanan oli governor dibuang sepenuhnya (nol), sehingga mekanisme beta/reverse tidak memiliki tekanan hidrolik untuk menggerakkan sudut bilah baling-baling (tidak memberikan efek apa pun)."
+            },
+            {
+                id: 9,
+                q: "The governing range of the primary propeller governor is:",
+                options: ["1600 to 1900 rpm.", "1600 to 2000 rpm.", "1600 to 1750 rpm.", "52% to 101,6% Ng"],
+                answer: 0, // A
+                explanation: "Primary propeller governor pada C208B mengatur putaran baling-baling (Np) dalam rentang operasi normal antara 1.600 hingga 1.900 RPM."
+            },
+            {
+                id: 10,
+                q: "Vacuum is generated by:",
+                options: [
+                    "Two engine-driven pumps on the accessory gearbox of the engine.",
+                    "An electric vacuum pump.",
+                    "Two electric vacuum pumps.",
+                    "Venting P3 air overboard through an ejector."
+                ],
+                answer: 0, // A
+                explanation: "Sistem vakum untuk instrumen standby gyro pada C208 digerakkan oleh dua buah pompa vakum mekanis yang terpasang pada accessory gearbox mesin (engine-driven vacuum pumps)."
+            },
+            {
+                id: 11,
+                q: "Electric trim is available for:",
+                options: ["Elevators.", "Ailerons.", "Rudder.", "All the above."],
+                answer: 0, // A
+                explanation: "Pada Cessna 208, sistem Electric Trim (dengan tombol split switch di yoke) hanya tersedia untuk sumbu pitch yaitu Elevator trim. Aileron dan rudder trim dioperasikan secara manual."
+            },
+            {
+                id: 12,
+                q: "The PT6A engine is defined as a:",
+                options: [
+                    "Fixed shaft, constant speed engine",
+                    "Free turbine, turboprop engine(x)",
+                    "Single spool, variable speed engine",
+                    "Jet engine"
+                ],
+                answer: 1, // B
+                explanation: "Pratt & Whitney PT6A adalah mesin turboprop free-turbine (turbin bebas), di mana turbin kompresor (gas generator) dan turbin penggerak baling-baling (power turbine) tidak terhubung secara mekanis satu poros."
+            },
+            {
+                id: 13,
+                q: "The power turbine is mounted on a shaft that:",
+                options: [
+                    "Drives the gas generator",
+                    "Drives the accessory box section",
+                    "Drives the reduction gear",
+                    "Drives the propeller directly"
+                ],
+                answer: 2, // C
+                explanation: "Power turbine terpasang pada poros terpisah di bagian depan mesin yang menggerakkan Reduction Gearbox (2-stage planetary gear) untuk menurunkan putaran ~33.000 RPM menjadi 1.900 RPM pada propeller."
+            },
+            {
+                id: 14,
+                q: "Loss of any pneumatic signal to the fuel control unit causes:",
+                options: [
+                    "The engine to shut down",
+                    "The engine to drop to approx 48%",
+                    "The engine RPM to increase rapidly",
+                    "Complete stoppage of fuel flow"
+                ],
+                answer: 1, // B
+                explanation: "FCU menggunakan sinyal tekanan udara P3 (Py). Jika terjadi kebocoran atau hilangnya sinyal pneumatik ke FCU, aliran bahan bakar akan turun ke posisi minimum idle sekitar 48% Ng (mencegah flameout total)."
+            },
+            {
+                id: 15,
+                q: "With the propeller control lever in the Full Forward position the:",
+                options: [
+                    "Propeller speed is governed at 1900 RPM",
+                    "Engine delivers maximum torque",
+                    "Propeller governor is by passed",
+                    "Gas generator RPM is at maximum"
+                ],
+                answer: 0, // A
+                explanation: "Meletakkan Propeller Control Lever pada posisi Full Forward menyetel primary propeller governor untuk mempertahankan putaran baling-baling maksimum pada 1.900 RPM."
+            },
+            {
+                id: 16,
+                q: "After engine start, with the condition lever set in the Low Idle position, the Ng should be at:",
+                options: ["52%", "48%", "56%", "65%"],
+                answer: 0, // A
+                explanation: "Setelah engine start selesai dengan Fuel Condition Lever pada posisi Low Idle, putaran gas generator (Ng) minimum yang normal adalah 52% (56% jika AC menyala)."
+            },
+            {
+                id: 17,
+                q: "The spoilers are used to increase:",
+                options: ["Descent angle", "Flap lift", "Short field capability", "Roll control at low speeds"],
+                answer: 3, // D
+                explanation: "Spoiler di permukaan atas sayap C208 bergerak secara diferensial mengikuti defleksi aileron ke atas untuk meningkatkan efektivitas roll control pada kecepatan rendah (terutama saat flaps diturunkan)."
+            },
+            {
+                id: 18,
+                q: "The emergency flap motor circuit have flap motor limit switches:",
+                options: ["False", "True"],
+                answer: 1, // B
+                explanation: "True. Sirkuit standby/emergency flap motor tetap memiliki limit switches untuk memutus arus motor saat mencapai batas penuh UP dan DOWN."
+            },
+            {
+                id: 19,
+                q: "The recommended airspeed to fly in case of an engine failure immediately after takeoff (flaps 20°) is:",
+                options: ["95 KIAS", "85 KIAS", "90 KIAS", "Whatever"],
+                answer: 1, // B
+                explanation: "Sesuai Emergency Checklist (Engine Failure Immediately After Takeoff), kecepatan terbaik untuk glide dengan posisi flaps 20° adalah 85 KIAS (atau 95 KIAS jika flaps UP)."
+            },
+            {
+                id: 20,
+                q: "The brake fluid reservoir is situated:",
+                options: [
+                    "On the hydraulic power pack.",
+                    "In the tailcone area adjacent to the oxygen filler panel.",
+                    "In the nose compartment on the left side, forward of the firewall.",
+                    "Under the floorboards, forward of the main spar."
+                ],
+                answer: 3, // D
+                explanation: "Reservoir minyak rem hidrolik pada Cessna 208 terletak di bawah lantai kokpit (under the floorboards), tepatnya di depan main spar."
+            },
+            {
+                id: 21,
+                q: "Taxi speed should be controlled by:",
+                options: [
+                    "Brakes, with thrust reversal as a last resort.",
+                    "Beta range, with brakes as required",
+                    "Brakes, with beta range as required.",
+                    "Brakes only."
+                ],
+                answer: 1, // B
+                explanation: "Untuk memperpanjang umur kampas rem pada pesawat turboprop berat seperti C208B, kecepatan taxi dikendalikan terutama menggunakan Beta range dengan bantuan rem seperlunya."
+            },
+            {
+                id: 22,
+                q: "Use of the inertial separator is recommended:",
+                options: [
+                    "When the OAT is at or below 4 ºC and in visible moisture.",
+                    "When flying through heavy rain and turbulence.",
+                    "When flying at night",
+                    "A and B"
+                ],
+                answer: 3, // D
+                explanation: "Inertial Separator diposisikan ke BYPASS saat OAT ≤ 4°C dengan visible moisture (kondisi icing), saat terbang menembus hujan lebat (heavy rain), maupun saat beroperasi di landasan berdebu/kerikil untuk mencegah FOD/ice ingestion."
+            },
+            {
+                id: 23,
+                q: "With the External Power switch in the START position:",
+                options: [
+                    "The GPU is connected to the starter and the battery to all other equipment.",
+                    "The GPU power all systems.",
+                    "The battery is connected to the starter and the GPU to the main bus.",
+                    "The battery powers all systems."
+                ],
+                answer: 0, // A
+                explanation: "Posisi START pada External Power Switch menghubungkan GPU langsung ke motor starter untuk start mesin, sementara baterai pesawat tetap menyuplai avionics/peralatan lainnya agar terlindungi dari lonjakan tegangan."
+            },
+            {
+                id: 24,
+                q: "The minimum ship battery voltage required for a start using external power is:",
+                options: ["20 V", "22 V", "24 V", "28 V"],
+                answer: 2, // C
+                explanation: "Sebelum melakukan external power start, tegangan baterai pesawat (ship battery) harus minimal 24 Volt (dan maksimal 28V dari GPU diatur ke 28.5V) untuk memastikan relay kontaktor dapat bekerja dengan baik."
+            },
+            {
+                id: 25,
+                q: "On the C208, the useful fuel capacity is:",
+                options: ["332 pounds", "330 US gallons on some models", "335 kg", "2224 pounds"],
+                answer: 1, // B
+                explanation: "Kapasitas usable fuel standar C208 adalah 332 US gallons (~2.224 lbs) atau 335,6 US gallons pada model terbaru. Dalam bank soal resmi C208 ini, opsi B (330 US gallons on some models) adalah kunci yang benar karena opsi A keliru menulis satuan 'pounds'."
+            },
+            {
+                id: 26,
+                q: "Avgas may be used for the Caravan:",
+                options: [
+                    "Yes but with certain procedures to be followed",
+                    "Never",
+                    "Yes, no special procedures apply",
+                    "Only if rocket fuel is unavailable"
+                ],
+                answer: 0, // A
+                explanation: "Avgas (100/100LL) dapat digunakan sebagai bahan bakar darurat/alternatif pada mesin PT6A-114A dengan batasan tertentu (maksimal 150 jam per periode TBO dan wajib menyalakan auxiliary fuel boost pump)."
+            },
+            {
+                id: 27,
+                q: "When noticing fuel imbalance of 200 lbs, the pilot should:",
+                options: [
+                    "Immediately close the fuel selector on the fullest tank's side.",
+                    "Immediately close the fuel selector on the lowest tank's side.",
+                    "Immediately select the center tank.",
+                    "Take no action, as the imbalance is no problem"
+                ],
+                answer: 1, // B
+                explanation: "Batas maksimum fuel imbalance pada C208 adalah 200 lbs. Untuk menyeimbangkannya, tutup (OFF) fuel tank selector pada sisi tangki yang isinya paling sedikit (lowest tank) sehingga mesin mengonsumsi bahan bakar dari tangki yang lebih penuh."
+            },
+            {
+                id: 28,
+                q: "The electric standby pump is intended for use during:",
+                options: [
+                    "Starting.",
+                    "Operation with low fuel states.",
+                    "All flight operations when using Avgas.",
+                    "All of the above."
+                ],
+                answer: 3, // D
+                explanation: "Auxiliary fuel boost pump digunakan saat engine start, saat kondisi bahan bakar rendah (Reservoir Fuel Low), saat menggunakan Avgas di seluruh fase penerbangan, serta saat tekanan bahan bakar rendah."
+            },
+            {
+                id: 29,
+                q: "Fuel is heated before entering the FCU by:",
+                options: [
+                    "Hot air from the engine ail cooler.",
+                    "An electric element and heated tank vents.",
+                    "Engine oil, through a heat exchanger.",
+                    "Anti-ice boost."
+                ],
+                answer: 2, // C
+                explanation: "Bahan bakar dipanaskan sebelum memasuki FCU melalui Fuel/Oil Heat Exchanger (FOHE) menggunakan panas dari oli mesin, sehingga mencegah pembentukan kristal es pada filter bahan bakar."
+            },
+            {
+                id: 30,
+                q: "Vy is:",
+                options: ["72 KIAS", "87 KIAS", "96 KIAS", "105 KIAS"],
+                answer: 2, // C
+                explanation: "Kecepatan Best Rate of Climb (Vy) standar pada C208B di permukaan laut dengan Flaps UP adalah 96 KIAS."
+            },
+            {
+                id: 31,
+                q: "A pilot is on final approach to a runway with crosswind of 24 kts:",
+                options: [
+                    "Landing is prohibited.",
+                    "A landing is allowed but ill-advised",
+                    "The pilot must immediately divert.",
+                    "There is no problem. The pilot can land without concern."
+                ],
+                answer: 3, // D
+                explanation: "Maximum demonstrated crosswind pada C208B adalah 25 knots (dan bukan merupakan batasan/limitasi). Karena angin 24 knots masih di bawah 25 knots, pendaratan dapat dilakukan dengan aman."
+            },
+            {
+                id: 32,
+                q: "Taking off from an airfield with a high OAT and high altitude, the following parameter will most likely limit engine power:",
+                options: ["ITT.", "Torque", "Ng", "Propeller rpm."],
+                answer: 0, // A
+                explanation: "Pada kondisi 'Hot and High' (suhu luar tinggi dan elevasi bandara tinggi), kerapatan udara rendah sehingga mesin akan mencapai batas temperatur ITT (805°C) terlebih dahulu sebelum mencapai batas torsi 1.865 ft-lbs."
+            },
+            {
+                id: 33,
+                q: "The battery is mounted:",
+                options: [
+                    "In the tail cone",
+                    "Under the right front seat",
+                    "On a swing-out tray on the firewall",
+                    "On the floor behind the pilot seat"
+                ],
+                answer: 3, // D
+                explanation: "Baterai utama (24V Ni-Cad atau Lead-Acid) pada Cessna 208 terletak di bawah lantai kabin tepat di belakang kursi pilot (on the floor behind the pilot seat)."
+            },
+            {
+                id: 34,
+                q: "The standby electrical system:",
+                options: [
+                    "Is powered by the battery",
+                    "Is powered by the engine driven generator",
+                    "Is powered by a belt-driven alternator",
+                    "Is actuated by the ground power monitor"
+                ],
+                answer: 2, // C
+                explanation: "Sistem kelistrikan cadangan (75-amp Standby Electrical System) pada C208B ditenagai oleh alternator yang digerakkan oleh sabuk (belt-driven alternator) dari accessory drive mesin."
+            },
+            {
+                id: 35,
+                q: "During the overspeed governor test, the propeller RPM should not exceed:",
+                options: ["1900 +/- 60 RPM", "1250 +/- 60 RPM", "1750 +/- 60 RPM", "2000 +/- 60 RPM"],
+                answer: 2, // C
+                explanation: "Saat melakukan pengujian Overspeed Governor (dengan menekan tombol OVERSPEED GOV TEST), putaran baling-baling akan tertahan dan tidak boleh melebihi 1.750 ± 60 RPM."
+            },
+            {
+                id: 36,
+                q: "Where is the redline on the Ng gage?",
+                options: ["102.4%", "101.6%", "1090C", "1865ft/lbs"],
+                answer: 1, // B
+                explanation: "Garis merah (redline / batas maksimum) untuk putaran Gas Generator (Ng) pada mesin PT6A-114A berada pada angka 101.6% (setara 38.100 RPM)."
+            },
+            {
+                id: 37,
+                q: "The maximum ITT limits are: (Take off | Climb)",
+                options: ["805 | 765", "850 | 825", "765 | 765", "756 | 740"],
+                answer: 0, // A
+                explanation: "Batas ITT maksimum pada C208B (PT6A-114A) adalah 805°C untuk Takeoff (maks 5 menit) dan 765°C untuk Maximum Climb / Maximum Cruise."
+            },
+            {
+                id: 38,
+                q: "Max takeoff ITT is limited to:",
+                options: ["2 minutes", "30 seconds", "60 seconds", "5 minutes"],
+                answer: 3, // D
+                explanation: "Penggunaan daya Takeoff dengan ITT hingga 805°C dibatasi maksimal selama 5 menit (sedangkan 1090°C untuk starting dibatasi 2 detik)."
+            },
+            {
+                id: 39,
+                q: "The fuel control unit FCU:",
+                options: [
+                    "Controls the amount of fuel delivered to the engine",
+                    "Is controlled by an electronic box",
+                    "Schedules fuel in accordance to power lever movement",
+                    "a and c"
+                ],
+                answer: 3, // D
+                explanation: "FCU pada PT6A-114A adalah unit hidromekanis/pneumatis (bukan elektronik) yang mengatur jumlah aliran bahan bakar ke nozzle mesin sesuai input posisi Power Lever, Condition Lever, serta tekanan udara P3."
+            },
+            {
+                id: 40,
+                q: "Forgetting to turn off the starter switch after having completed the start procedure will:",
+                options: [
+                    "Exceed the starter cycle limit",
+                    "Disable the generator",
+                    "B and D",
+                    "Cause no harm, as the starter will disengage itself"
+                ],
+                answer: 1, // B
+                explanation: "Meskipun starter otomatis terputus pada 46% Ng, membiarkan switch di posisi START membuat GCU terus memblokir sirkuit generator sehingga generator tidak mengisi daya (disable the generator) dan berisiko merusak relay starter."
+            },
+            {
+                id: 41,
+                q: "The low idle and the high idle positions of the fuel condition lever control:",
+                options: [
+                    "NG at the minimum and maximum positions of the power lever",
+                    "NG at the minimum positions of the power lever",
+                    "NG at the maximum positions of the power lever",
+                    "NG at all the positions of the power lever"
+                ],
+                answer: 1, // B
+                explanation: "Fuel Condition Lever (Low Idle 52% Ng vs High Idle ~65-70% Ng) menetapkan batas putaran minimum gas generator (Ng) ketika Power Lever berada pada posisi minimum (Idle)."
+            },
+            {
+                id: 42,
+                q: "The start procedure should be aborted if:",
+                options: [
+                    "Oil pressure does not rise",
+                    "No engine light up within 10 seconds",
+                    "The propeller does not rotate",
+                    "All of the above"
+                ],
+                answer: 3, // D
+                explanation: "Prosedur start wajib segera dibatalkan (Abort Start) apabila tidak ada kenaikan ITT (light-up) dalam 10 detik setelah Condition Lever ke Low Idle, tekanan oli tidak naik, atau propeller tidak berputar."
+            },
+            {
+                id: 43,
+                q: "As per SOPs, the start should be aborted when the ITT:",
+                options: [
+                    "Exceeds 900° C",
+                    "Approaches 1090° C",
+                    "Exceeds 805° C",
+                    "Approaches 900° C and is continuing to rise"
+                ],
+                answer: 3, // D
+                explanation: "Batas absolut starting ITT adalah 1090°C (maks 2 detik). Sesuai SOP, pilot harus membatalkan start ketika ITT mendekati 900°C dan terus menanjak cepat agar tidak melampaui limit 1090°C."
+            },
+            {
+                id: 44,
+                q: "If the temperature rapidly climbs toward the absolute ITT limit during the start or the Ng accelerates too rapidly, the pilot should:",
+                options: [
+                    "Immediately turn off the starter switch.",
+                    "Immediately move the fuel condition lever to cut-off while continuing to motor the engine with the starter.",
+                    "Watch to see that the absolute limit is not exceeded for more than two seconds.",
+                    "Immediately turn off the battery switch."
+                ],
+                answer: 1, // B
+                explanation: "Pada gejala Hot Start, segera pindahkan Fuel Condition Lever ke CUTOFF untuk menghentikan suplai bahan bakar, sambil tetap membiarkan starter memutar kompresor (motoring) untuk mendinginkan ruang bakar."
+            },
+            {
+                id: 45,
+                q: "Accessory items of the engine (oil pump, fuel pump, and tacho generator) are driven by the:",
+                options: [
+                    "Power turbine.",
+                    "Compressor turbine.",
+                    "Electric motor.",
+                    "Bleed Air."
+                ],
+                answer: 1, // B
+                explanation: "Seluruh aksesori mesin pada bagian belakang (accessory gearbox: oil pump, high-pressure fuel pump, starter-generator, Ng tacho) digerakkan oleh poros Compressor Turbine (Gas Generator)."
+            },
+            {
+                id: 46,
+                q: "The propeller RPM is not responding to propeller lever movement. The likely cause is:",
+                options: [
+                    "FCU pneumatic failure",
+                    "Prop governor failure",
+                    "Flameout",
+                    "Failure of the overspeed governor solenoid"
+                ],
+                answer: 1, // B
+                explanation: "Jika RPM baling-baling tidak merespons pergerakan Propeller Control Lever, penyebab utamanya adalah kegagalan mekanis/hidrolis pada Primary Propeller Governor atau terputusnya linkage menuju governor."
+            },
+            {
+                id: 47,
+                q: "If all electrical power fails in flight, the wing flaps:",
+                options: [
+                    "Will remain in their position.",
+                    "Will retract due to dynamic pressure.",
+                    "Can be set as required.",
+                    "Can be retracted if required"
+                ],
+                answer: 0, // A
+                explanation: "Wing flaps C208 digerakkan oleh motor listrik melalui jackscrew mekanis. Jika terjadi total electrical failure, flap akan terkunci tetap pada posisinya terakhir."
+            },
+            {
+                id: 48,
+                q: "If asymmetric flap extension is noticed, the pilot must retain roll control and immediately:",
+                options: [
+                    "Retract the flaps.",
+                    "Extend full flaps (30º).",
+                    "Use the emergency extension mechanism.",
+                    "Twist the aileron trimmer knob."
+                ],
+                answer: 0, // A
+                explanation: "Sesuai Emergency Checklist (Asymmetric Flap Extension), pilot harus mempertahankan kontrol roll dengan aileron dan segera menarik kembali flap (Retract the flaps) ke posisi simetris sebelumnya."
+            },
+            {
+                id: 49,
+                q: "The gross weight kit reduces the gross weight Va from 148 to:",
+                options: ["137", "112", "105", "143"],
+                answer: 3, // D
+                explanation: "Dengan pemasangan Gross Weight Kit (peningkatan MTOW menjadi 8.750 lbs), kecepatan manuver maksimum (Va) pada berat kotor maksimum berkurang dari 148 KIAS menjadi 143 KIAS."
+            },
+            {
+                id: 50,
+                q: "Which flap setting is not allowed for takeoff on the standard C208:",
+                options: ["Up", "10", "15", "FUL"],
+                answer: 3, // D
+                explanation: "Posisi flap yang diizinkan untuk takeoff adalah UP (0°) atau 20° (dan 10° pada konfigurasi tertentu), sedangkan posisi FULL (30°) dilarang untuk takeoff."
+            },
+            {
+                id: 51,
+                q: "Vortex Generators on top of the Horizontal stabilizer serves what purpose",
+                options: [
+                    "Increases effectiveness of controls.",
+                    "Increases STOL/MTOW.",
+                    "Provide enhanced lateral stability.",
+                    "All of the above."
+                ],
+                answer: 1, // B
+                explanation: "Vortex Generators di atas permukaan horizontal stabilizer dipasang sebagai bagian dari paket peningkatan MTOW (dari 8.000 lbs menjadi 8.750 lbs) untuk mencegah stall pada tailplane saat flap penuh dan CG depan."
+            },
+            {
+                id: 52,
+                q: "The starter-Generator is rated as how many ampere-hour:",
+                options: [
+                    "28 V, 200 Ampere-Hour",
+                    "22 V, 200 Ampere-Hour",
+                    "24 V, 200 Ampere-Hour",
+                    "24 V, 150 Ampere-Hour"
+                ],
+                answer: 0, // A
+                explanation: "Starter-generator utama pada Cessna 208B standar memiliki rating output sebesar 28 Volt, 200 Ampere (atau 300A pada beberapa varian modifikasi)."
+            },
+            {
+                id: 53,
+                q: "Above how many Ng does the GCU provide automatic cut-off:",
+                options: ["46%.", "48%.", "52%.", "56%."],
+                answer: 0, // A
+                explanation: "Generator Control Unit (GCU) memutus sirkuit motor starter secara otomatis ketika putaran gas generator (Ng) mencapai 46%."
+            },
+            {
+                id: 54,
+                q: "The GCU controls the starter-Generator and serves what functions:",
+                options: [
+                    "Overspeed protection",
+                    "Voltage regulation and protection from high voltage + reverse current",
+                    "Starter control",
+                    "All of the above"
+                ],
+                answer: 3, // D
+                explanation: "GCU mengatur regulasi tegangan (28.5V), proteksi overvoltage dan reverse current, serta kontrol starter termasuk pemutusan otomatis pada 46% Ng."
+            },
+            {
+                id: 55,
+                q: "When will the Generator be disconnected from the buses:",
+                options: [
+                    "In the event of a high voltage situation only.",
+                    "In the event of a low voltage situation only.",
+                    "In the event of a high voltage or reverse current situation.",
+                    "In the event of a reverse current situation only"
+                ],
+                answer: 2, // C
+                explanation: "GCU akan membuka kontaktor generator (memutus generator dari main bus) apabila terdeteksi kondisi tegangan berlebih (high voltage / overvoltage) atau arus balik (reverse current)."
+            },
+            {
+                id: 56,
+                q: "What is the maximum fuel difference allowable:",
+                options: ["150 lbs.", "175 lbs.", "200 lbs.", "250 lbs."],
+                answer: 2, // C
+                explanation: "Perbedaan isi bahan bakar (maximum fuel imbalance) antara tangki sayap kiri dan kanan yang diizinkan pada C208B adalah 200 lbs."
+            },
+            {
+                id: 57,
+                q: "Reverse can be used during landing roll to:",
+                options: [
+                    "Achieve the specified landing performance by shortening the landing roll.",
+                    "Reduce the landing roll to less than that specified in the manual.",
+                    "Improve the pilot's view.",
+                    "Reduce the noise level."
+                ],
+                answer: 0, // A
+                explanation: "Sama seperti soal #7: Reverse digunakan saat landing roll untuk mencapai jarak pendaratan sesuai manual POH dengan memperpendek jarak gelinding."
+            },
+            {
+                id: 58,
+                q: "How many US Quarts of oil does the caravan take:",
+                options: ["14 Quarts.", "10 Quarts.", "18 Quarts.", "20 Quarts."],
+                answer: 1, // B
+                explanation: "Meskipun kapasitas total sistem oli mencapai 14 quarts, kapasitas pengisian tangki oli mesin (oil tank capacity) pada PT6A-114A adalah 9.5 hingga 10 US Quarts."
+            },
+            {
+                id: 59,
+                q: "What is the P3 air:",
+                options: [
+                    "Bleed air taken of the axial compressor",
+                    "Bleed air taken of the centrifugal compressor",
+                    "Bleed air taken of the power turbine",
+                    "Bleed air taken of the exhaust"
+                ],
+                answer: 1, // B
+                explanation: "Udara P3 adalah udara bertekanan tinggi (compressor discharge air) yang diambil dari bagian keluar kompresor sentrifugal (centrifugal compressor) untuk kabin heat, FCU, dan sistem pneumatik lainnya."
+            },
+            {
+                id: 60,
+                q: "If the pilot PFD fails, the MFD and copilot PFD:",
+                options: [
+                    "Automatically goes into reversionary mode whether or not the reversionary button on the audio panel is pressed.",
+                    "Automatically go into reversionary mode on the pilot PFD but not the copilot PFD.",
+                    "Either reversionary button on the pilot or copilot audio panel must be pressed.",
+                    "Are blank and the pilot must declare an emergency and land the aircraft immediately."
+                ],
+                answer: 2, // C
+                explanation: "Pada G1000 C208B, jika layar PFD pilot mengalami kegagalan daya/mati total, pilot harus menekan tombol merah DISPLAY BACKUP (reversionary button) pada audio panel pilot atau kopilot untuk memindahkan tampilan PFD ke MFD."
+            },
+            {
+                id: 61,
+                q: "When the pilot chooses a lateral or vertical mode on the mode controller, the AFCS status box indicates:",
+                options: [
+                    "Green for standby and white for active.",
+                    "Magenta for standby and white for active.",
+                    "White for standby and green for active.",
+                    "Both white for standby and for active."
+                ],
+                answer: 2, // C
+                explanation: "Pada G1000 AFCS scoreboard, mode yang masih dalam status armed/standby ditampilkan berwarna PUTIH (white), sedangkan mode yang sedang aktif (active/captured) berwarna HIJAU (green)."
+            },
+            {
+                id: 62,
+                q: "The Igniters should be used in this condition, except:",
+                options: [
+                    "When fuel levels are low.",
+                    "In icing conditions.",
+                    "In heavy precipitation.",
+                    "Engine shutdown."
+                ],
+                answer: 3, // D
+                explanation: "Igniters digunakan saat level bahan bakar rendah, icing, dan hujan lebat, tetapi TIDAK digunakan saat prosedur engine shutdown."
+            },
+            {
+                id: 63,
+                q: "Fuel is heated before entering the FCU by:",
+                options: [
+                    "Hot air from the engine air cooler.",
+                    "An electric element and heated tank vents.",
+                    "Engine oil, through a heat exchanger.",
+                    "Anti-ice boost."
+                ],
+                answer: 2, // C
+                explanation: "Bahan bakar dipanaskan oleh oli mesin melalui Fuel/Oil Heat Exchanger (FOHE) sebelum masuk ke FCU."
+            },
+            {
+                id: 64,
+                q: "In case of an engine failure in the cruise, the memory items are:",
+                options: [
+                    "Feather the prop, open the doors, fuel shut off, flaps up.",
+                    "Mayday call, squawk 7700, fuel cut of, pax brief.",
+                    "95 kts, flaps up, prop feather condition cut off",
+                    "95 kts, power idle, prop feather, condition cut off"
+                ],
+                answer: 2, // C
+                explanation: "Memory items untuk Engine Failure During Flight (Cruise) pada C208B adalah: 1) Airspeed 95 KIAS, 2) Wing Flaps UP, 3) Propeller Control Lever FEATHER, 4) Fuel Condition Lever CUTOFF."
+            },
+            {
+                id: 65,
+                q: "Reservoir Fuel Low On",
+                options: [
+                    "Ignition ON, Fuel Tank Selectors, L/R ON",
+                    "Fuel Boost Switch –ON, Ignition On, Fuel Tank selectors L/R ON",
+                    "Fuel tank Selectors –L/R ON, Ignition –ON, Fuel Boost Switch-ON",
+                    "Fuel Boost Switch –ON."
+                ],
+                answer: 2, // C
+                explanation: "Urutan checklist untuk annunciator RESERVOIR FUEL LOW adalah: 1) Fuel Tank Selectors — L/R ON (pastikan tidak ada yang tertutup), 2) Ignition — ON, 3) Fuel Boost Switch — ON."
+            },
+            {
+                id: 66,
+                q: "The CWS button on the control yoke:",
+                options: [
+                    "Momentarily disengages the autopilot, but leave the servos engaged.",
+                    "Momentarily disengages the roll and pitch servos, but not the autopilot.",
+                    "Disengages the yaw damper.",
+                    "Discontinues the pitch mode of the autopilot."
+                ],
+                answer: 0, // A
+                explanation: "Menekan dan menahan tombol Control Wheel Steering (CWS) pada yoke melepas kontrol autopilot secara sementara agar pilot dapat mengubah pitch/roll secara manual, dan akan kembali menyinkronkan autopilot saat tombol dilepas."
+            },
+            {
+                id: 67,
+                q: "The park Brakes is:",
+                options: [
+                    "Set by pulling the handle and released by pushing in the handle",
+                    "Set by stepping on the brakes and pulling the handle, and released by stepping on the brakes and pushing in the handle",
+                    "Set by stepping on the brakes and pulling the handle, and released by pushing in the handle",
+                    "Set by pulling the handle and released by stepping on the brakes and pushing in the handle."
+                ],
+                answer: 1, // B
+                explanation: "Parking brake pada C208B diaktifkan dengan menginjak pedal rem lalu menarik tuas parking brake, dan dilepas dengan menginjak pedal rem lalu mendorong tuas ke dalam."
+            },
+            {
+                id: 68,
+                q: "The rudder lock:",
+                options: [
+                    "Must be pulled out during engine start.",
+                    "Must be pushed in to lock the rudder.",
+                    "Must be released before towing the aircraft.",
+                    "Is on the center pedestal."
+                ],
+                answer: 2, // C
+                explanation: "Rudder lock pada C208B terhubung dengan sistem nosewheel steering. Sebelum pesawat ditarik (towing), rudder lock wajib dilepas agar nosewheel dapat berbelok bebas tanpa merusak mekanisme kemudi."
+            },
+            {
+                id: 69,
+                q: "The rudder pedals can be used to steer the nose gear approximately:",
+                options: [
+                    "50° either side of center.",
+                    "15° either side of center",
+                    "26° either side of center.",
+                    "10° either side of center."
+                ],
+                answer: 1, // B
+                explanation: "Pedal rudder dapat menggerakkan nosewheel steering hingga ±15° ke kiri maupun ke kanan dari posisi tengah (dan dapat berbelok hingga ±50° dengan bantuan differential braking)."
+            },
+            {
+                id: 70,
+                q: "The minimum Ng when operating the air conditioning on the ground is:",
+                options: ["70%.", "65%.", "56%.", "55%."],
+                answer: 2, // C
+                explanation: "Untuk mencegah overheating pada mesin saat beban kompresor AC bekerja di darat, putaran minimum Ng saat AC menyala adalah 56% Ng."
+            },
+            {
+                id: 71,
+                q: "What is the purpose of the avionics bus tie in the C208:",
+                options: [
+                    "It connects the 2 electrical busses together.",
+                    "It connects the 2 avionics busses together.",
+                    "It connects the 2 avionics busses when the generator has gone offline and the standby power is operated.",
+                    "All answer is correct."
+                ],
+                answer: 3, // D
+                explanation: "Avionics Bus Tie menghubungkan Avionics Bus 1 dan Avionics Bus 2 sehingga seluruh peralatan avionik tetap mendapat suplai daya saat generator utama offline dan pesawat beroperasi menggunakan standby power."
+            },
+            {
+                id: 72,
+                q: "With regard to the external power switch. When the \"starter\" side is selected, External power is applied to the:",
+                options: [
+                    "Starter motor only.",
+                    "Starter and main bus.",
+                    "Starter, main bus and battery.",
+                    "All answer is correct."
+                ],
+                answer: 0, // A
+                explanation: "Saat External Power Switch dipilih ke sisi STARTER, daya dari GPU hanya dialirkan ke motor starter (sementara main bus tetap disuplai oleh baterai)."
+            },
+            {
+                id: 73,
+                q: "With regard to the external power switch. When the \"Bus\" side is selected, External power is applied to the:",
+                options: [
+                    "Starter motor only.",
+                    "Main bus only.",
+                    "Starter and main bus.",
+                    "Starter, main bus and battery."
+                ],
+                answer: 2, // C
+                explanation: "Ketika External Power Switch dipilih ke sisi BUS, daya GPU menyuplai Main Bus sekaligus sirkuit Starter."
+            },
+            {
+                id: 74,
+                q: "How many fuels nozzle assembly's dos the C208 have?",
+                options: ["14.", "7.", "2.", "10."],
+                answer: 0, // A
+                explanation: "Ruang bakar (annular combustion chamber) pada mesin PT6A-114A memiliki 14 buah fuel nozzle (10 primary dan 4 secondary) yang terpasang melingkar."
+            },
+            {
+                id: 75,
+                q: "Below what voltage will the standby electrical system (Alternator) supply power to the system:",
+                options: ["24 Volts.", "24.5 Volts.", "27.5 Volts.", "26 Volts."],
+                answer: 2, // C
+                explanation: "Jika switch STBY PWR dalam posisi ON, alternator cadangan (standby alternator) akan otomatis mengambil alih beban kelistrikan apabila tegangan sistem utama turun di bawah 27.5 Volt."
+            },
+            {
+                id: 76,
+                q: "When the standby power goes ON during flight, what will your initial actions be to maintain com/avionics (After tripping and resetting the Generator):",
+                options: [
+                    "Switch on \"avionics bus tie\".",
+                    "Switch on \"avionics standby power\".",
+                    "No action needed.",
+                    "Switch on \"avionics standby power\" and \"avionics bus tie\""
+                ],
+                answer: 3, // D
+                explanation: "Jika generator utama gagal di udara dan tidak dapat di-reset, aktifkan AVIONICS STBY PWR dan AVIONICS BUS TIE (serta matikan beban non-esensial agar tidak melebihi kapasitas 75A alternator)."
+            },
+            {
+                id: 77,
+                q: "Below what oil pressure will the \"oil pressure low\" annunciator come on:",
+                options: ["40 PSI.", "40 +/- 2 PSI.", "38 PSI.", "35 PSI."],
+                answer: 0, // A
+                explanation: "Lampu peringatan merah OIL PRESS LOW pada annunciator panel akan menyala apabila tekanan oli mesin turun di bawah 40 PSI."
+            },
+            {
+                id: 78,
+                q: "When the \"voltage low\" annunciator comes on, electrical system bus voltage has dropped below how many volts:",
+                options: ["27.5 V.", "25 V.", "24.5 V.", "24 V."],
+                answer: 2, // C
+                explanation: "Annunciator VOLTAGE LOW akan menyala ketika tegangan pada main electrical bus turun di bawah 24.5 Volt (menandakan generator tidak mengisi dan daya berasal dari baterai)."
+            },
+            {
+                id: 79,
+                q: "If the chip detector light comes on, what does it mean:",
+                options: [
+                    "Metal chips have been detected in either the reduction gearbox or accessory gearbox.",
+                    "Metal chips have been detected in the reduction gearbox.",
+                    "Metal chips have been detected in the accessory gearbox.",
+                    "All answer is correct."
+                ],
+                answer: 3, // D
+                explanation: "Lampu peringatan CHIP DETECTOR menyala jika sensor magnetik mendeteksi adanya serpihan logam pada oli di bagian Reduction Gearbox maupun Accessory Gearbox."
+            },
+            {
+                id: 80,
+                q: "How does the fuel get to the reservoir manifold (to get to the engine driven boost pump):",
+                options: [
+                    "By ejector pump.",
+                    "Auxiliary boost pump.",
+                    "By both ejector pump and auxiliary boost pump.",
+                    "It is self-driven."
+                ],
+                answer: 2, // C
+                explanation: "Bahan bakar dari reservoir tank dialirkan menuju engine-driven boost pump melalui ejector pump (saat operasi normal) maupun electric auxiliary boost pump."
+            },
+            {
+                id: 81,
+                q: "What drives the ejector pump:",
+                options: [
+                    "It is driven by Engine driven fuel pump.",
+                    "It is driven by engine.",
+                    "It is driven itself.",
+                    "It is driven by Auxiliary fuel pump."
+                ],
+                answer: 0, // A
+                explanation: "Ejector pump bekerja berdasarkan efek Venturi yang ditenagai oleh aliran bahan bakar bertekanan tinggi dari Engine-Driven Fuel Pump (motive flow)."
+            },
+            {
+                id: 82,
+                q: "In BETA range the propeller blade angle is controlled by the:",
+                options: [
+                    "Power Lever",
+                    "Propeller Governor",
+                    "The computing section of FCU",
+                    "Both A and B"
+                ],
+                answer: 0, // A
+                explanation: "Pada rentang Beta (Beta range), sudut bilah baling-baling (blade pitch) dikendalikan secara mekanis langsung oleh Power Lever melalui beta valve."
+            },
+            {
+                id: 83,
+                q: "If the fuel filter becomes blocked:",
+                options: [
+                    "Fuel starvation occurs and the engine flame out",
+                    "The RED FUEL FILTER annunciator light illuminate",
+                    "The RED Fuel filter bypass flag pop up",
+                    "All answers correct"
+                ],
+                answer: 0, // A
+                explanation: "*(Catatan Bank Soal)*: Pada C208B standar tanpa bypass valve atau jika filter tersumbat total sebelum indikasi bypass aktif, suplai bahan bakar terhenti (fuel starvation) dan menyebabkan engine flameout. (Pada model dengan bypass, lampu amber FUEL FILTER BYPASS akan menyala)."
+            },
+            {
+                id: 84,
+                q: "The maximum ITT limits are: (Take off | Climb)",
+                options: ["805 | 765", "850 | 825", "765 | 765", "756 | 740"],
+                answer: 0, // A
+                explanation: "Sama seperti soal #37: Batas maksimum ITT adalah 805°C untuk Takeoff dan 765°C untuk Climb."
+            },
+            {
+                id: 85,
+                q: "The generator control Unit (GCU) controls the operation of:",
+                options: [
+                    "The standby alternator",
+                    "The generator only",
+                    "The starter-generator",
+                    "All electrical output"
+                ],
+                answer: 2, // C
+                explanation: "GCU mengatur operasi Starter-Generator utama (baik saat mode starting hingga 46% Ng maupun saat mode generating pada 28.5V)."
+            },
+            {
+                id: 86,
+                q: "The 75-amp standby electrical system is powered by:",
+                options: [
+                    "The Battery",
+                    "The engine-driven generator",
+                    "A belt-driven alternator",
+                    "The external Power"
+                ],
+                answer: 2, // C
+                explanation: "Standby electrical system berkapasitas 75 Ampere ditenagai oleh alternator yang digerakkan sabuk (belt-driven alternator) pada bagian depan mesin."
+            },
+            {
+                id: 87,
+                q: "The torque meter indicates the power:",
+                options: [
+                    "Developed by the gas generator",
+                    "Delivered by the propeller",
+                    "Delivered to the propeller",
+                    "All answers correct"
+                ],
+                answer: 2, // C
+                explanation: "Torquemeter mengukur tekanan oli di dalam reduction gearbox yang merepresentasikan besarnya daya/torsi yang disalurkan ke poros propeller (delivered to the propeller)."
+            },
+            {
+                id: 88,
+                q: "The maximum permissible speed of the gas generator is:",
+                options: [
+                    "37.500 RPM at 101.6%",
+                    "33.000 RPM at 101.6%",
+                    "38.100 RPM at 101.6%",
+                    "37.500 RPM at 100%"
+                ],
+                answer: 2, // C
+                explanation: "Putaran 100% Ng setara dengan 37.500 RPM, sedangkan batas maksimum yang diizinkan (redline 101.6% Ng) adalah 38.100 RPM."
+            },
+            {
+                id: 89,
+                q: "A failure of any pneumatic signal input to the fuel control unit will result in the fuel flow decreasing to a minimum idle of:",
+                options: [
+                    "48% at 5000ft",
+                    "65% at 5000ft",
+                    "52% at 5000ft",
+                    "55% at 5000ft"
+                ],
+                answer: 0, // A
+                explanation: "Jika sinyal pneumatik (Py/P3) ke FCU hilang, aliran bahan bakar turun ke minimum idle sekitar 48% Ng."
+            },
+            {
+                id: 90,
+                q: "The wing flaps are:",
+                options: [
+                    "Electrically driven",
+                    "Hydraulically driven",
+                    "Mechanically driven",
+                    "Both A and C"
+                ],
+                answer: 0, // A
+                explanation: "Wing flaps pada Cessna 208 digerakkan secara elektrik (electrically driven) oleh motor listrik 28V DC."
+            },
+            {
+                id: 91,
+                q: "What type of flaps are fitted to the aircraft:",
+                options: [
+                    "Large span, fowler flaps",
+                    "Large span, split flaps",
+                    "Large span, single-slotted, semi-fowler flaps",
+                    "All answers correct"
+                ],
+                answer: 2, // C
+                explanation: "Cessna 208 menggunakan jenis Large-span, single-slotted, semi-fowler flaps (dengan posisi UP, 10°, 20°, dan FULL 30°)."
+            },
+            {
+                id: 92,
+                q: "The standby flap system should be operated:",
+                options: [
+                    "Until just after the point where the flaps reach their mechanical stops",
+                    "Until the flaps reach the desired position as per the indicator",
+                    "Only once the autopilot has been engaged",
+                    "An automatic retraction of the flaps"
+                ],
+                answer: 1, // B
+                explanation: "Saat mengoperasikan Standby Flap System, tahan switch STBY FLAP UP/DOWN hingga indikator posisi flap mencapai sudut yang diinginkan, lalu segera lepaskan switch."
+            },
+            {
+                id: 93,
+                q: "In order to de-energize the ignition system and activate the generator system after start:",
+                options: [
+                    "Manually place the starter switch in the OFF position",
+                    "Place the fuel condition lever in the cut off position",
+                    "The ignition cycle is automatically terminated at 46% Ng",
+                    "All answer corrects"
+                ],
+                answer: 3, // D
+                explanation: "Dalam bank soal ini, opsi D (All answer corrects) dipilih karena mencakup pemutusan otomatis sirkuit starter/ignition pada 46% Ng serta penempatan starter switch ke posisi OFF setelah start."
+            },
+            {
+                id: 94,
+                q: "When the external power switch is placed in the STARTER position:",
+                options: [
+                    "External power is supplied to the starter circuit only and battery to the main bus.",
+                    "External power is supplied to the main busses and no power is available to the starter",
+                    "External power is supplied to the generator control circuit",
+                    "External power is supplied to all bus"
+                ],
+                answer: 0, // A
+                explanation: "Posisi STARTER menyalurkan daya GPU khusus ke sirkuit starter, sementara baterai pesawat tetap menyuplai main bus untuk melindungi avionik."
+            },
+            {
+                id: 95,
+                q: "The courtesy lights are controlled by the?",
+                options: [
+                    "Exterior lighting switch",
+                    "Cabin light switch",
+                    "Battery switch",
+                    "Standby power switch"
+                ],
+                answer: 1, // B
+                explanation: "Lampu kabin dan courtesy lights dikendalikan melalui sakelar Cabin Light Switch dan mendapat daya langsung dari hot battery bus."
+            },
+            {
+                id: 96,
+                q: "The cabin lights are connected to the battery bus. There for it:",
+                options: [
+                    "Does not required battery switch to be on for operation",
+                    "Has its own battery",
+                    "Generator power",
+                    "Requires the battery to be on for operation"
+                ],
+                answer: 0, // A
+                explanation: "Karena terhubung langsung ke Battery Bus (Hot Battery Bus), lampu kabin dapat dinyalakan tanpa perlu menyalakan Battery Master Switch terlebih dahulu."
+            },
+            {
+                id: 97,
+                q: "Cabin ventilating air enters the aircrafts through",
+                options: [
+                    "The forward engine air intakes",
+                    "Air inlets on each side of the forward fuselage",
+                    "Air inlets on each wing at the upper ends of the wing struts",
+                    "Both b and c"
+                ],
+                answer: 2, // C
+                explanation: "Udara segar untuk ventilasi kabin masuk melalui lubang intake udara yang terletak pada kedua sayap tepat di bagian ujung atas penyangga sayap (upper ends of the wing struts)."
+            },
+            {
+                id: 98,
+                q: "While operating the GWX weather radar system on the ground, ensure that:",
+                options: [
+                    "The gain is calibrated properly",
+                    "The radar system has been tested",
+                    "The no 2 COM is set to ATIS",
+                    "No one is within 11 feet of the radar antenna if the weather is activated while on the ground"
+                ],
+                answer: 3, // D
+                explanation: "Demi keselamatan radiasi gelombang mikro (MPEL), pastikan tidak ada orang berada dalam radius 11 feet di depan antena radar cuaca saat radar aktif di darat."
+            },
+            {
+                id: 99,
+                q: "The oxygen system controls are:",
+                options: [
+                    "In the overhead console",
+                    "On the instrument panel",
+                    "On the center console",
+                    "On the left sidewall switch and CB panel"
+                ],
+                answer: 0, // A
+                explanation: "Tuas katup pengaktif oksigen (Oxygen Control Lever) dan indikator tekanan tabung oksigen terletak pada overhead console di atas kokpit."
+            },
+            {
+                id: 100,
+                q: "The BARO MIN setting on the PFD is:",
+                options: [
+                    "The height above ground level for the min of an approach",
+                    "The desired altitude at which the aircraft levels when climbing to a selected altitude",
+                    "The desire altitude at which the aircraft descends when reaching the min of an approach",
+                    "The decision height altitude or MDA on an approach"
+                ],
+                answer: 3, // D (Preserving exact text while labeling D cleanly)
+                explanation: "Pengaturan BARO MIN pada PFD G1000 digunakan untuk memasukkan ketinggian minimum pendekatan berbasis tekanan barometrik (Decision Altitude / DA atau Minimum Descent Altitude / MDA)."
+            }
+        ];
+
+        // ============================================================================
+        // APPLICATION STATE
+        // ============================================================================
+        let state = {
+            instantFeedback: true,
+            mode: 'all', // 'all', 'sim30', 'retry'
+            questions: [],
+            currentIndex: 0,
+            userAnswers: {}, // { questionId: selectedOptionIndex }
+            flagged: {},     // { questionId: true/false }
+            timerSeconds: 0,
+            timerInterval: null,
+            resultFilter: 'all'
+        };
+
+        const LETTERS = ['A', 'B', 'C', 'D'];
+
+        // ============================================================================
+        // SETTINGS & UTILITY FUNCTIONS
+        // ============================================================================
+        function setFeedbackMode(isInstant) {
+            state.instantFeedback = isInstant;
+            const btnOn = document.getElementById('toggle-instant-on');
+            const btnOff = document.getElementById('toggle-instant-off');
+
+            if (isInstant) {
+                btnOn.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white transition cursor-pointer";
+                btnOff.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition cursor-pointer";
+            } else {
+                btnOff.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white transition cursor-pointer";
+                btnOn.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition cursor-pointer";
+            }
+        }
+
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function showModal(title, message, onConfirm) {
+            const modal = document.getElementById('custom-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const btnConfirm = document.getElementById('modal-confirm');
+            const btnCancel = document.getElementById('modal-cancel');
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+
+            btnCancel.onclick = closeModal;
+            btnConfirm.onclick = () => {
+                closeModal();
+                if (typeof onConfirm === 'function') onConfirm();
+            };
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // ============================================================================
+        // QUIZ LIFECYCLE
+        // ============================================================================
+        function startQuiz(mode, customList = null) {
+            state.mode = mode;
+            state.currentIndex = 0;
+            state.userAnswers = {};
+            state.flagged = {};
+            state.timerSeconds = 0;
+
+            let badgeLabel = "";
+            if (mode === 'all') {
+                const shouldShuffle = document.getElementById('chk-shuffle-all').checked;
+                state.questions = shouldShuffle ? shuffleArray(QUESTION_BANK) : [...QUESTION_BANK];
+                badgeLabel = shouldShuffle ? "LATIHAN 100 SOAL (ACAK)" : "LATIHAN 100 SOAL (URUT)";
+            } else if (mode === 'sim30') {
+                state.questions = shuffleArray(QUESTION_BANK).slice(0, 30);
+                badgeLabel = "SIMULASI EXAM (30 SOAL)";
+            } else if (mode === 'retry' && customList) {
+                state.questions = customList;
+                badgeLabel = `ULANGI SOAL SALAH (${customList.length} SOAL)`;
+            }
+
+            document.getElementById('quiz-mode-badge').textContent = badgeLabel;
+            document.getElementById('quiz-feedback-badge').textContent = state.instantFeedback
+                ? "Instant Feedback: ON"
+                : "Exam Mode (Hidden Feedback)";
+            document.getElementById('total-count').textContent = state.questions.length;
+
+            // Switch Views
+            document.getElementById('view-menu').classList.add('hidden');
+            document.getElementById('view-results').classList.add('hidden');
+            document.getElementById('view-quiz').classList.remove('hidden');
+
+            document.getElementById('btn-home').classList.remove('hidden');
+            document.getElementById('btn-home').classList.add('flex');
+            document.getElementById('header-timer-box').classList.remove('hidden');
+            document.getElementById('header-timer-box').classList.add('flex');
+
+            startTimer();
+            buildNavigator();
+            renderQuestion();
+        }
+
+        function startTimer() {
+            clearInterval(state.timerInterval);
+            updateTimerDisplay();
+            state.timerInterval = setInterval(() => {
+                state.timerSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
+            const secs = String(state.timerSeconds % 60).padStart(2, '0');
+            document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+        }
+
+        function confirmReturnHome() {
+            const isQuizActive = !document.getElementById('view-quiz').classList.contains('hidden');
+            if (isQuizActive) {
+                showModal(
+                    "Kembali ke Menu Utama?",
+                    "Progres pengerjaan kuis saat ini akan direset jika Anda kembali ke menu utama.",
+                    returnToMenu
+                );
+            } else {
+                returnToMenu();
+            }
+        }
+
+        function returnToMenu() {
+            clearInterval(state.timerInterval);
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById('view-results').classList.add('hidden');
+            document.getElementById('view-menu').classList.remove('hidden');
+
+            document.getElementById('btn-home').classList.add('hidden');
+            document.getElementById('btn-home').classList.remove('flex');
+            document.getElementById('header-timer-box').classList.add('hidden');
+            document.getElementById('header-timer-box').classList.remove('flex');
+        }
+
+        // ============================================================================
+        // QUIZ RENDERING & INTERACTION
+        // ============================================================================
+        function buildNavigator() {
+            const grid = document.getElementById('navigator-grid');
+            grid.innerHTML = '';
+            state.questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `nav-btn-${idx}`;
+                btn.textContent = idx + 1;
+                btn.onclick = () => {
+                    state.currentIndex = idx;
+                    renderQuestion();
+                };
+                grid.appendChild(btn);
+            });
+            updateNavigatorStyles();
+        }
+
+        function updateNavigatorStyles() {
+            state.questions.forEach((q, idx) => {
+                const btn = document.getElementById(`nav-btn-${idx}`);
+                if (!btn) return;
+
+                const isCurrent = idx === state.currentIndex;
+                const userAns = state.userAnswers[q.id];
+                const isAnswered = userAns !== undefined;
+                const isFlagged = !!state.flagged[q.id];
+
+                let base = "h-9 rounded-lg font-mono text-xs font-semibold transition flex items-center justify-center cursor-pointer border ";
+
+                if (isCurrent) {
+                    base += "bg-sky-500/25 border-sky-400 text-white ring-2 ring-sky-500/40 ";
+                } else if (isFlagged) {
+                    base += "bg-amber-500/20 border-amber-400 text-amber-200 ";
+                } else if (isAnswered && state.instantFeedback) {
+                    if (userAns === q.answer) {
+                        base += "bg-emerald-500/20 border-emerald-500/50 text-emerald-300 ";
+                    } else {
+                        base += "bg-rose-500/20 border-rose-500/50 text-rose-300 ";
+                    }
+                } else if (isAnswered) {
+                    base += "bg-slate-700/80 border-slate-500 text-white ";
+                } else {
+                    base += "bg-cockpit-800 border-cockpit-700 text-slate-400 hover:border-slate-500 hover:text-slate-200 ";
+                }
+
+                btn.className = base;
+            });
+
+            // Update Progress Bar
+            const answeredTotal = Object.keys(state.userAnswers).length;
+            document.getElementById('answered-count').textContent = answeredTotal;
+            const pct = Math.round((answeredTotal / state.questions.length) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+        }
+
+        function renderQuestion() {
+            const q = state.questions[state.currentIndex];
+            const total = state.questions.length;
+
+            document.getElementById('q-step-label').textContent = `SOAL ${state.currentIndex + 1} / ${total}`;
+            document.getElementById('q-orig-num').textContent = `Bank #${q.id}`;
+            document.getElementById('question-text').textContent = q.q;
+
+            // Flag button state
+            const isFlagged = !!state.flagged[q.id];
+            const flagIcon = document.getElementById('flag-icon');
+            const flagText = document.getElementById('flag-text');
+            if (isFlagged) {
+                flagIcon.classList.remove('text-slate-400');
+                flagIcon.classList.add('text-amber-400', 'fill-amber-400');
+                flagText.textContent = "Ditandai";
+                flagText.classList.add('text-amber-300');
+            } else {
+                flagIcon.classList.add('text-slate-400');
+                flagIcon.classList.remove('text-amber-400', 'fill-amber-400');
+                flagText.textContent = "Tandai";
+                flagText.classList.remove('text-amber-300');
+            }
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const selectedIdx = state.userAnswers[q.id];
+            const hasAnswered = selectedIdx !== undefined;
+
+            q.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                const isSelected = selectedIdx === optIdx;
+                const isCorrectOpt = optIdx === q.answer;
+
+                let cardStyle = "w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 cursor-pointer ";
+                let badgeStyle = "w-7 h-7 rounded-lg font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 border ";
+
+                if (hasAnswered && state.instantFeedback) {
+                    if (isCorrectOpt) {
+                        cardStyle += "bg-emerald-500/15 border-emerald-500/60 text-emerald-100 ";
+                        badgeStyle += "bg-emerald-500 text-cockpit-950 border-emerald-400 ";
+                    } else if (isSelected && !isCorrectOpt) {
+                        cardStyle += "bg-rose-500/15 border-rose-500/60 text-rose-100 ";
+                        badgeStyle += "bg-rose-500 text-white border-rose-400 ";
+                    } else {
+                        cardStyle += "bg-cockpit-800/50 border-cockpit-700/70 text-slate-400 opacity-75 ";
+                        badgeStyle += "bg-cockpit-900 border-cockpit-700 text-slate-500 ";
+                    }
+                } else if (isSelected) {
+                    cardStyle += "bg-sky-500/15 border-sky-400 text-white shadow-md ";
+                    badgeStyle += "bg-sky-500 text-cockpit-950 border-sky-300 ";
+                } else {
+                    cardStyle += "bg-cockpit-800/80 hover:bg-cockpit-800 border-cockpit-700 hover:border-sky-500/50 text-slate-200 ";
+                    badgeStyle += "bg-cockpit-900 border-cockpit-600 text-slate-300 ";
+                }
+
+                btn.className = cardStyle;
+                btn.onclick = () => selectOption(optIdx);
+
+                btn.innerHTML = `
+                    <span class="${badgeStyle}">${LETTERS[optIdx]}</span>
+                    <span class="text-sm sm:text-base leading-relaxed">${optText}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            // Instant Explanation Panel
+            const expBox = document.getElementById('instant-explanation');
+            if (hasAnswered && state.instantFeedback) {
+                expBox.classList.remove('hidden');
+                const statusBadge = document.getElementById('exp-status-badge');
+                if (selectedIdx === q.answer) {
+                    statusBadge.textContent = "JAWABAN BENAR";
+                    statusBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                } else {
+                    statusBadge.textContent = `KURANG TEPAT • KUNCI: ${LETTERS[q.answer]}`;
+                    statusBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40";
+                }
+                document.getElementById('exp-text').textContent = q.explanation;
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            // Prev / Next button states
+            document.getElementById('btn-prev').disabled = state.currentIndex === 0;
+            const btnNext = document.getElementById('btn-next');
+            if (state.currentIndex === total - 1) {
+                btnNext.classList.add('hidden');
+            } else {
+                btnNext.classList.remove('hidden');
+            }
+
+            updateNavigatorStyles();
+        }
+
+        function selectOption(optIdx) {
+            const q = state.questions[state.currentIndex];
+            state.userAnswers[q.id] = optIdx;
+            renderQuestion();
+        }
+
+        function toggleFlag() {
+            const q = state.questions[state.currentIndex];
+            state.flagged[q.id] = !state.flagged[q.id];
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (state.currentIndex > 0) {
+                state.currentIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (state.currentIndex < state.questions.length - 1) {
+                state.currentIndex++;
+                renderQuestion();
+            }
+        }
+
+        function confirmFinishQuiz() {
+            const answeredCount = Object.keys(state.userAnswers).length;
+            const total = state.questions.length;
+            const unanswered = total - answeredCount;
+
+            const msg = unanswered > 0
+                ? `Masih ada ${unanswered} soal yang belum Anda jawab. Apakah Anda yakin ingin menyelesaikan kuis dan melihat nilai?`
+                : `Anda telah menjawab seluruh ${total} soal. Selesaikan kuis dan lihat hasil evaluasi sekarang?`;
+
+            showModal("Selesaikan Kuis?", msg, showResults);
+        }
+
+        // ============================================================================
+        // RESULTS DASHBOARD & REVIEW
+        // ============================================================================
+        function showResults() {
+            clearInterval(state.timerInterval);
+
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById('view-results').classList.remove('hidden');
+
+            let correct = 0;
+            let wrong = 0;
+
+            state.questions.forEach(q => {
+                if (state.userAnswers[q.id] === q.answer) {
+                    correct++;
+                } else {
+                    wrong++;
+                }
+            });
+
+            const total = state.questions.length;
+            const scorePct = Math.round((correct / total) * 100);
+            const isPassed = scorePct >= 80;
+
+            const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
+            const secs = String(state.timerSeconds % 60).padStart(2, '0');
+            document.getElementById('res-time-taken').textContent = `Waktu Pengerjaan: ${mins}:${secs}`;
+
+            const passBadge = document.getElementById('res-pass-badge');
+            if (isPassed) {
+                passBadge.textContent = "PASSED (LULUS)";
+                passBadge.className = "px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                document.getElementById('res-subtitle').textContent = "Selamat! Skor Anda memenuhi passing grade minimal 80% untuk Type Rating C208B.";
+            } else {
+                passBadge.textContent = "BELUM LULUS (< 80%)";
+                passBadge.className = "px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40";
+                document.getElementById('res-subtitle').textContent = "Skor di bawah passing grade 80%. Pelajari kembali pembahasan soal yang salah di bawah ini.";
+            }
+
+            document.getElementById('res-score-pct').textContent = `${scorePct}%`;
+            document.getElementById('res-correct-cnt').textContent = correct;
+            document.getElementById('res-wrong-cnt').textContent = wrong;
+
+            const btnRetry = document.getElementById('btn-retry-wrong');
+            if (wrong > 0) {
+                btnRetry.classList.remove('hidden');
+                btnRetry.classList.add('flex');
+            } else {
+                btnRetry.classList.add('hidden');
+                btnRetry.classList.remove('flex');
+            }
+
+            filterResults('all');
+        }
+
+        function filterResults(filterType) {
+            state.resultFilter = filterType;
+
+            ['all', 'wrong', 'correct'].forEach(t => {
+                const btn = document.getElementById(`filter-${t}`);
+                if (t === filterType) {
+                    btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition cursor-pointer";
+                } else {
+                    btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer";
+                }
+            });
+
+            const list = document.getElementById('review-list');
+            list.innerHTML = '';
+
+            const filtered = state.questions.filter(q => {
+                const isCorrect = state.userAnswers[q.id] === q.answer;
+                if (filterType === 'wrong') return !isCorrect;
+                if (filterType === 'correct') return isCorrect;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                list.innerHTML = `
+                    <div class="bg-cockpit-900 border border-cockpit-700 rounded-2xl p-8 text-center text-slate-400 text-sm">
+                        Tidak ada soal pada kategori filter ini.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(q => {
+                const userAns = state.userAnswers[q.id];
+                const isCorrect = userAns === q.answer;
+                const userAnsText = userAns !== undefined
+                    ? `${LETTERS[userAns]}. ${q.options[userAns]}`
+                    : "Tidak dijawab";
+                const correctAnsText = `${LETTERS[q.answer]}. ${q.options[q.answer]}`;
+
+                const card = document.createElement('div');
+                card.className = `bg-cockpit-900 border ${isCorrect ? 'border-emerald-500/30' : 'border-rose-500/40'} rounded-2xl p-5 sm:p-6 space-y-3`;
+
+                card.innerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="px-2.5 py-1 rounded-lg bg-cockpit-800 border border-cockpit-700 font-mono text-xs font-bold text-slate-300">
+                            Soal #${q.id}
+                        </span>
+                        <span class="px-2.5 py-1 rounded-lg font-mono text-xs font-bold ${isCorrect ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'}">
+                            ${isCorrect ? 'BENAR' : 'SALAH'}
+                        </span>
+                    </div>
+                    <h4 class="text-sm sm:text-base font-semibold text-white leading-relaxed">${q.q}</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm pt-1">
+                        <div class="p-3 rounded-xl ${isCorrect ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-200' : 'bg-rose-500/10 border border-rose-500/30 text-rose-200'}">
+                            <span class="block text-[11px] font-mono uppercase opacity-75 mb-0.5">Jawaban Anda:</span>
+                            <span class="font-medium">${userAnsText}</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-200">
+                            <span class="block text-[11px] font-mono uppercase opacity-75 mb-0.5">Kunci Jawaban:</span>
+                            <span class="font-semibold">${correctAnsText}</span>
+                        </div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-cockpit-800/80 border border-cockpit-700 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        <span class="font-mono text-sky-400 font-semibold">Pembenaran: </span>${q.explanation}
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function retryWrongQuestions() {
+            const wrongList = state.questions.filter(q => state.userAnswers[q.id] !== q.answer);
+            if (wrongList.length > 0) {
+                startQuiz('retry', wrongList);
+            }
+        }
+
+        function copySummaryToClipboard() {
+            let correct = 0;
+            const wrongItems = [];
+            state.questions.forEach(q => {
+                if (state.userAnswers[q.id] === q.answer) {
+                    correct++;
+                } else {
+                    wrongItems.push(`#${q.id} (Kunci: ${LETTERS[q.answer]})`);
+                }
+            });
+            const total = state.questions.length;
+            const pct = Math.round((correct / total) * 100);
+
+            const summary = `HASIL LATIHAN TYPE RATING C208B\n` +
+                `Skor: ${pct}% (${correct}/${total} Benar)\n` +
+                `Soal Salah (${wrongItems.length}): ${wrongItems.length > 0 ? wrongItems.join(', ') : 'Tidak ada'}`;
+
+            const tempArea = document.createElement('textarea');
+            tempArea.value = summary;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+
+            showToast("Ringkasan skor berhasil disalin ke clipboard!");
+        }
+    </script>
+</body>
+</html>
